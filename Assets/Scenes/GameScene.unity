@@ -382,7 +382,7 @@ MonoBehaviour:
   meleePrefab: {fileID: 1068693187}
   bulletPrefab: {fileID: 2482565655256035933, guid: e882d6148bd40614180f22d07e7c7cdc, type: 3}
   bulletSpawnPoint: {fileID: 904158510}
-  canShoot: 1
+  canShoot: 0
 --- !u!70 &1051782474
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

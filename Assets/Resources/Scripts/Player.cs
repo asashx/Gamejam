@@ -109,7 +109,8 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.GetObject(bulletPrefab);
+        bullet.transform.position = bulletSpawnPoint.position;
         bullet.GetComponent<Bullet>().SetSpeed(fireDirection);
     }
 
@@ -133,12 +134,28 @@ public class Player : MonoBehaviour
         // 翻转角色
         if (moveInput.x > 0)
         {
-            spriteRenderer.flipX = false;
+            Flip(true);
         }
         else if (moveInput.x < 0)
         {
-            spriteRenderer.flipX = true;
+            Flip(false);
+        }   
+    }
+
+    private void Flip(bool faceRight)
+    {
+        Vector3 scale = transform.localScale;
+
+        if (faceRight)
+        {
+            scale.x = Mathf.Abs(scale.x);
         }
+        else
+        {
+            scale.x = -Mathf.Abs(scale.x);
+        }
+
+        transform.localScale = scale;
     }
 
     private void Jump(InputAction.CallbackContext ctx)

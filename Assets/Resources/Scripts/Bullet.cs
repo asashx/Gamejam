@@ -52,6 +52,6 @@ public class Bullet : MonoBehaviour
     // 眼泪销毁
     public void Die()
     {
-        Destroy(gameObject);
+        ObjectPool.Instance.PushObject(gameObject);
     }
 }
