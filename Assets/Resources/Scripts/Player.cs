@@ -19,13 +19,34 @@ public class Player : MonoBehaviour
     public float coyoteTime = 0.1f;
     public float coyoteTimeCounter = 0f;
 
+    [Header("角色攻击")]
+    public GameObject meleePrefab;
+    private PolygonCollider2D meleeCollider;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    public bool canShoot = false;
+    private float attackRate = 0.2f;
+    private float attackRateCounter = 0f;
+    private Vector2 fireDirection = Vector2.zero;
+    private Vector2 mousePos;
+
     private void Awake()
     {
         playerInput = new PlayerInput();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
+        // 获取射击点
+        bulletSpawnPoint = transform.Find("Shoot");
+
+        // 获取近战碰撞体
+        meleeCollider = meleePrefab.GetComponent<PolygonCollider2D>();
+
+        // 触发跳跃
         playerInput.Player.Jump.started += Jump;
+
+        // 触发射击
+        playerInput.Player.Attack.started += Attack;
     }
 
     private void OnEnable()
@@ -35,17 +56,21 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     private void OnDisable()
     {
         playerInput.Disable();
     }
-    
+
     private void Update()
     {
         moveInput = playerInput.Player.Move.ReadValue<Vector2>();
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        fireDirection = mousePos - (Vector2)transform.position;
+
+        attackRateCounter += Time.deltaTime;
     }
 
     private void FixedUpdate()
@@ -53,6 +78,53 @@ public class Player : MonoBehaviour
         Move();
         CheckGround();
     }
+
+    private void Attack(InputAction.CallbackContext ctx)
+    {
+        if (CanAttack())
+        {
+            if (canShoot)
+            {
+                Shoot();
+            }
+            else
+            {
+                Melee();
+            }
+        }
+    }
+
+    private bool CanAttack()
+    {
+        if (attackRateCounter >= attackRate)
+        {
+            attackRateCounter = 0f;
+            return true;
+        }
+        else
+        {
+            return false;
+        }        
+    }
+
+    private void Shoot()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().SetSpeed(fireDirection);
+    }
+
+    private void Melee()
+    {
+        meleeCollider.enabled = true;
+        StartCoroutine(DisableMeleeCollider());
+    }
+
+    IEnumerator DisableMeleeCollider()
+    {
+        yield return new WaitForSeconds(0.2f);
+        meleeCollider.enabled = false;
+    }
+
 
     private void Move()
     {
