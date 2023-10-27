@@ -512,49 +512,19 @@ GameObject:
   - component: {fileID: 1107480433}
   - component: {fileID: 1107480432}
   - component: {fileID: 1107480431}
-  - component: {fileID: 1107480430}
   - component: {fileID: 1107480435}
   - component: {fileID: 1107480436}
   - component: {fileID: 1107480437}
-  m_Layer: 0
+  - component: {fileID: 1107480438}
+  - component: {fileID: 1107480440}
+  - component: {fileID: 1107480439}
+  m_Layer: 8
   m_Name: CloseEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1107480430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1107480429}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef412abfccde06d4caa447eb40c7e069, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalSpeed: 5
-  chaseSpeed: 10
-  currentSpeed: 0
-  faceDir: {x: 0, y: 0, z: 0}
-  attacker: {fileID: 1051782471}
-  hurtForce: 1
-  leftOffset: {x: 0.5, y: 0}
-  manual: 1
-  rightOffset: {x: -0.5, y: 0}
-  checkRaduis: 0.1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  touchLeftWall: 0
-  touchRightWall: 0
-  isHurt: 0
-  isDead: 0
-  wait: 0
-  waitTimeCounter: 0
-  waitTime: 3
 --- !u!114 &1107480431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +563,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!212 &1107480433
 SpriteRenderer:
@@ -677,7 +647,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -691,7 +661,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -725,31 +695,102 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1107480429}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d2e62a681301b64ab32721a21d63946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalSpeed: 2
-  chaseSpeed: 4
+  normalSpeed: 3
+  chaseSpeed: 5
   currentSpeed: 0
   faceDir: {x: 0, y: 0, z: 0}
   attacker: {fileID: 1051782471}
   hurtForce: 2
-  leftOffset: {x: 0.5, y: 0}
-  manual: 1
-  rightOffset: {x: -0.5, y: 0}
-  checkRaduis: 0.1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  touchLeftWall: 0
-  touchRightWall: 0
   isHurt: 0
   isDead: 0
   wait: 0
   waitTimeCounter: 0
   waitTime: 3
+--- !u!114 &1107480438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107480429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5874f65dac4cc469eac60c18db1250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchLeftWall: 0
+  touchRightWall: 0
+  leftOffset: {x: 0.5, y: 0}
+  manual: 0
+  rightOffset: {x: -0.5, y: 0}
+  checkRaduis: 0.1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &1107480439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107480429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f686a57151e5744a76344659b86f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  currentHealth: 0
+--- !u!61 &1107480440
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107480429}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1597979494
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,7 +905,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
