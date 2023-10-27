@@ -79,6 +79,25 @@ public class Player : MonoBehaviour
         CheckGround();
     }
 
+    #region 角色攻击
+    public void AbsorbEssence(string form)
+    {
+        switch (form)
+        {
+            case "Shoot":
+                canShoot = true;
+                break;
+            case "Melee":
+                canShoot = false;
+                break;
+            default:
+                break;
+        }
+    }
+    // public void AbsorbAnim()
+    // {
+    //     anim.SetTrigger("Absorb");
+    // }
     private void Attack(InputAction.CallbackContext ctx)
     {
         if (CanAttack())
@@ -125,8 +144,9 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         meleeCollider.enabled = false;
     }
+    #endregion
 
-
+    #region 角色移动
     private void Move()
     {
         rb.velocity = new Vector2(moveInput.x * speed * Time.fixedDeltaTime, rb.velocity.y);
@@ -157,7 +177,9 @@ public class Player : MonoBehaviour
 
         transform.localScale = scale;
     }
+    #endregion
 
+    #region 角色跳跃
     private void Jump(InputAction.CallbackContext ctx)
     {
         if (isGrounded || coyoteTimeCounter > 0)
@@ -179,5 +201,6 @@ public class Player : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
     }
+    #endregion
 
 }
