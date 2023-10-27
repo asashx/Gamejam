@@ -18,7 +18,7 @@ public class CloseFight : Enemy
    public override void Move()
    {
       base.Move();
-      anim.SetBool("Move",true);//这里覆写了之后加上了播放走动动画的步骤
+      //anim.SetBool("Move",true);//这里覆写了之后加上了播放走动动画的步骤
    }
 }
 

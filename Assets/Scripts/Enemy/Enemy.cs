@@ -7,7 +7,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Rigidbody2D rb;
-    protected Animator anim;
+    //protected Animator anim;
     private CapsuleCollider2D coll;
     
     [Header("基本参数")] 
@@ -34,11 +34,15 @@ public class Enemy : MonoBehaviour
     public bool wait;
     public float waitTimeCounter;
     public float waitTime;
+    
     void Awake()
     {
+        isHurt = false;
+        isDead = false;
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         coll = GetComponent<CapsuleCollider2D>();//获取组件
+        currentSpeed = normalSpeed;
         if (!manual)
         {   
             //判断下左右的检测范围
@@ -54,32 +58,40 @@ public class Enemy : MonoBehaviour
         
     }
     
-    void Update()
-    {
-        Check();
+    private void Update()
+    {   
+        Debug.Log("为什么不运行");
+        faceDir = new Vector3(transform.localScale.x,0,0);//获取敌人的面朝方式
     }
 
     private void FixedUpdate()
-    {
+    {   
+        Debug.Log("启动了");
         if (!isHurt && !isDead)
+        {
             Move();
+            Check();
+        }
     }
 
     public virtual void Move()//希望可以复写
-    {
-        rb.velocity = new Vector2(currentSpeed * Time.deltaTime, rb.velocity.y);//设置了敌人的移动
+    {   
+        Debug.Log("移动");
+        rb.velocity = new Vector2(currentSpeed *  transform.localScale.x, rb.velocity.y);//设置了敌人的移动
     }
 
     public void Check()
     {   
-        faceDir = new Vector3(transform.localScale.x,0,0);//获取敌人的面朝方式
+        
+        
         //墙体判断,左右墙
         touchLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, groundLayer);
         touchRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, groundLayer);
         if ((touchLeftWall && faceDir.x > 0)|| (touchRightWall && faceDir.x < 0) )
-        {
+        {   
+            Debug.Log("撞墙");
             wait = true;
-            anim.SetBool("Move",false);
+            //anim.SetBool("Move",false);
         }
         TimeCounter();
     }
@@ -92,15 +104,15 @@ public class Enemy : MonoBehaviour
 
     public void TimeCounter()
     {   
-        
         if (wait)
         {
             waitTimeCounter -= Time.deltaTime;
             if (waitTimeCounter <= 0)
-            {
+            {   
+                Debug.Log("进行改变");
                 wait = false;
                 waitTimeCounter = waitTime;
-                transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
+                transform.localScale = new Vector3(-faceDir.x, 1, 1);
             }
         }
     }
@@ -109,6 +121,7 @@ public class Enemy : MonoBehaviour
     {   
         //受击转身
         attacker = attckTrans;
+        
         if (attckTrans.position.x - transform.position.x > 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
@@ -119,7 +132,7 @@ public class Enemy : MonoBehaviour
         }
         //受伤之后会造成一定的击退效果
         isHurt = true;
-        anim.SetTrigger("hurt");//播放受击动画
+        //anim.SetTrigger("hurt");//播放受击动画
         Vector2 dir = new Vector2(transform.position.x - attckTrans.position.x, 0).normalized;
 
         StartCoroutine(OnHurt(dir));//使用携程进行一个动作切换的时间间隔
@@ -135,7 +148,7 @@ public class Enemy : MonoBehaviour
     public void OnDie()
     {
         gameObject.layer = 2;//这里的第二个图层之后设置为忽略的图层，这里面的物体不会与角色产生碰撞
-        anim.SetBool("Dead",true);
+        //anim.SetBool("Dead",true);
         isDead = true;
     }
 
