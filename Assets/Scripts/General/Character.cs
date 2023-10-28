@@ -15,8 +15,9 @@ public class Character : MonoBehaviour
     public float invulnerableCounter;
     public bool invulnerable;
 
-    public UnityEvent<Transform> OnTakeDamage;
-    public UnityEvent OnDie;
+    public UnityEvent<Transform> OnTakeDamage;//直接调用
+    public UnityEvent OnDie;//直接调用
+    
     void Start()
     {
         currentHealth = maxHealth; //设置生命值

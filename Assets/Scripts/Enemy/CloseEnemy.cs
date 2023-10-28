@@ -37,10 +37,14 @@ public class CloseEnemy : MonoBehaviour
     public float waitTime;
     public float lostTime;
     public float lostTimeCounter;
+    
+    [Header("吸收")]
+    public GameObject meleeEssencePrefab;
 
     private BaseState currentState;
     protected BaseState patrolState;
     protected BaseState chaseState;//设置状态
+    
     void Awake()
     {
         isHurt = false;
@@ -77,7 +81,7 @@ public class CloseEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {   
-        Debug.Log("启动了");
+        //Debug.Log("启动了");
         if (!isHurt && !isDead && !wait )
         {
             Move();//执行自动移动
@@ -92,7 +96,7 @@ public class CloseEnemy : MonoBehaviour
 
     public virtual void Move()//希望可以复写
     {   
-        Debug.Log("移动");
+        //Debug.Log("移动");
         rb.velocity = new Vector2(currentSpeed *  faceDir.x, rb.velocity.y);//设置了敌人的移动
     }
     
@@ -103,7 +107,7 @@ public class CloseEnemy : MonoBehaviour
             waitTimeCounter -= Time.deltaTime;
             if (waitTimeCounter <= 0)
             {   
-                Debug.Log("进行改变");
+                //Debug.Log("进行改变");
                 wait = false;
                 waitTimeCounter = waitTime;
                 transform.localScale = new Vector3(faceDir.x, 1, 1);
@@ -118,14 +122,13 @@ public class CloseEnemy : MonoBehaviour
         else
         {
             lostTimeCounter = lostTime;
-        }
+        }//检测丢失敌人后的时间
     }
 
-    public bool FoundPlayer()
+    public bool FoundPlayer()////检测面朝方向是否有玩家
     {
-        return Physics2D.BoxCast(transform.position + (Vector3)centerOffset, checkSize, 0, faceDir, checkDistance,
-            attackLayer);
-        //检测方向是否有玩家
+        return Physics2D.BoxCast(transform.position + (Vector3)centerOffset, checkSize, 0, faceDir, checkDistance, attackLayer);
+        
     }
 
     public void SwitchState(NPCState state)
@@ -141,6 +144,7 @@ public class CloseEnemy : MonoBehaviour
         currentState = newState;
         currentState.OnEnter(this);
     }
+    
     #region 事件执行部分
     public void OnTakeDamage(Transform attackTrans)
     {   
@@ -179,7 +183,10 @@ public class CloseEnemy : MonoBehaviour
 
     public void DestroyObject()
     {   
-        
+        if (meleeEssencePrefab != null)
+        {
+            Instantiate(meleeEssencePrefab, transform.position, Quaternion.identity); // 生成ShootEssence预制体
+        }
         Destroy(this.gameObject);//播放死亡动画后摧毁物体
     }
     #endregion
