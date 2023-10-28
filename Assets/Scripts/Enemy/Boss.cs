@@ -55,10 +55,18 @@ public class Boss : MonoBehaviour
         }
         else if (distanceToTarget <= hitRange)
         {
+
             
                  Shoot();
                  Hit();
                  //_lastHit = Time.time;
+            // if (Time.time > _lastHit + 1 / hitRate)
+            // {
+            //     Shoot();
+            //     Hit();
+            //     _lastHit = Time.time;
+            // }
+
         }
     }
     
@@ -145,7 +153,7 @@ public class Boss : MonoBehaviour
 private void Hit()
 {
     Vector2 position = target.position;
-    p
+    
 }
 
 
