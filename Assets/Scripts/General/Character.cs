@@ -8,7 +8,13 @@ public class Character : MonoBehaviour
     [Header("基础属性")] 
     public float maxHealth;
     public float currentHealth;
+    public float damage;
 
+    [Header("动画")]
+    public Animator anim;
+
+    public bool isHurt = false;
+    
     [Header("受伤无敌")] 
     public float invulnerableDuration;
     public float invulnerableCounter;
@@ -20,6 +26,7 @@ public class Character : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth; //设置生命值
+        anim = GetComponent<Animator>();
     }
     
     void Update()
@@ -34,18 +41,18 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void TakeDamage(Hit attacker)
+    public void TakeDamage(float damage)
     {
         if (invulnerable)
             return;
         
         //Debug.Log(attacker.damage);
-        if (currentHealth - attacker.damage > 0)
-        {
-            currentHealth -= attacker.damage; //设置生命的削减
+        if (currentHealth - damage > 0)
+        {   
+            currentHealth -= damage; //设置生命的削减
+            anim.SetTrigger("isHurt");
             TriggerInvulnerable();
             //执行受伤
-            OnTakeDamage?.Invoke(attacker.transform);
         }
         else
         {
