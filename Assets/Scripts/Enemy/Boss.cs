@@ -145,7 +145,7 @@ public class Boss : MonoBehaviour
 private void Hit()
 {
     Vector2 position = target.position;
-    
+    p
 }
 
 
