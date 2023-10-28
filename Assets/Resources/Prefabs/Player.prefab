@@ -131,8 +131,18 @@ MonoBehaviour:
   speed: 200
   jumpForce: 70
   isGrounded: 0
-  coyoteTime: 0.1
+  isJumping: 0
+  coyoteTime: 0.2
   coyoteTimeCounter: 0
+  touchLeftWall: 0
+  touchRightWall: 0
+  isSticking: 0
+  leftOffset: {x: -0.3, y: 0}
+  rightOffset: {x: 0.3, y: 0}
+  checkRaduis: 0.3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   meleePrefab: {fileID: 5195239272317459674}
   bulletPrefab: {fileID: 2482565655256035933, guid: e882d6148bd40614180f22d07e7c7cdc, type: 3}
   bulletSpawnPoint: {fileID: 4223269829500635824}

@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
 
     [Header("角色状态")]
     public bool isGrounded = false;
+    public bool isJumping = false;
+    public bool justJumped = false;
     public float coyoteTime = 0.1f;
     public float coyoteTimeCounter = 0f;
     public bool touchLeftWall;//角色是否触碰左墙
@@ -198,20 +200,29 @@ public class Player : MonoBehaviour
 
     #region 角色跳跃
     private void Jump(InputAction.CallbackContext ctx)
-    {
-        if (isGrounded || coyoteTimeCounter > 0)
+    {        
+        if (!justJumped && (isGrounded || coyoteTimeCounter > 0))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            coyoteTimeCounter = 0;
+            isJumping = true;
         }
     }
 
     public void CheckGround()
     {
-        isGrounded = Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Ground"));
+        bool wasGrounded = isGrounded;
+        isGrounded = Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Ground")) ||
+                     Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Obstacle"));
 
+        if (wasGrounded && !isGrounded)
+        {
+            isJumping = true;
+        }
         if (isGrounded)
         {
             coyoteTimeCounter = coyoteTime;
+            isJumping = false;
         }
         else
         {
@@ -279,7 +290,7 @@ public class Player : MonoBehaviour
         if (!touchLeftWall && !touchRightWall)
         {   
             Debug.Log("Exit");
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            // rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isSticking = false; // 退出贴墙状态
         }    
     }
