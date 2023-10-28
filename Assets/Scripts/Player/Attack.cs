@@ -8,13 +8,13 @@ public class Attack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // if (other.CompareTag("Enemy"))
-        // {
-        //     EnemyBehaviour enemyBehaviour = other.GetComponent<EnemyBehaviour>();
-        //     if (enemyBehaviour != null)
-        //     {
-        //         enemyBehaviour.TakeDamage(damage);
-        //     }
-        // }
+        if (other.CompareTag("Obstacle"))
+        {
+            DestroyObstacle destroyObstacle = other.GetComponent<DestroyObstacle>();
+            if (destroyObstacle != null)
+            {
+                destroyObstacle.DestroyTile(transform.position);
+            }
+        }
     }
 }

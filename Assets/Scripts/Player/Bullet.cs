@@ -39,6 +39,15 @@ public class Bullet : MonoBehaviour
         {
             Die();
         }
+        else if (other.CompareTag("Obstacle"))
+        {
+            DestroyObstacle destroyObstacle = other.GetComponent<DestroyObstacle>();
+            if (destroyObstacle != null)
+            {
+                destroyObstacle.DestroyTile(transform.position);
+            }
+            Die();
+        }
         // else if (other.CompareTag("Enemy"))
         // {
         //     Die();
