@@ -7,7 +7,7 @@ using UnityEngine;
 public class CloseEnemy : MonoBehaviour
 {
     private Rigidbody2D rb;
-    //protected Animator anim;
+    protected Animator anim;
     private CapsuleCollider2D coll;
     public PhysicCheck physicCheck;//调用脚本，隐藏
     
@@ -52,7 +52,7 @@ public class CloseEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerBar = GetComponent<PlayerBar>();
         physicCheck = GetComponent<PhysicCheck>();
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         coll = GetComponent<CapsuleCollider2D>();//获取组件
         currentSpeed = normalSpeed;//速度
         waitTimeCounter = waitTime;//时间
@@ -165,7 +165,7 @@ public class CloseEnemy : MonoBehaviour
         }
         //受伤之后会造成一定的击退效果
         isHurt = true;
-        //anim.SetTrigger("hurt");//播放受击动画
+        anim.SetTrigger("hurt");//播放受击动画
         Vector2 dir = new Vector2(transform.position.x - attackTrans.position.x, 0).normalized;
         rb.velocity = new Vector2(0, rb.velocity.y);
         StartCoroutine(OnHurt(dir));//使用携程进行一个动作切换的时间间隔
@@ -181,7 +181,7 @@ public class CloseEnemy : MonoBehaviour
     public void OnDie()
     {
         gameObject.layer = 5;//这里的第五个图层之后设置为忽略的图层，这里面的物体不会与角色产生碰撞
-        //anim.SetBool("Dead",true);
+        anim.SetBool("Dead",true);
         isDead = true;
     }
 
