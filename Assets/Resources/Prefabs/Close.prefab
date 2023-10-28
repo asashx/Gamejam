@@ -297,7 +297,7 @@ MonoBehaviour:
   isGround: 0
   leftOffset: {x: -1.2, y: 0.3}
   rightOffset: {x: 1.2, y: 0.3}
-  bottomOffset: {x: 0, y: -0.2}
+  bottomOffset: {x: -0.6, y: -0.2}
   manual: 0
   checkRaduis: 0.2
   groundLayer:

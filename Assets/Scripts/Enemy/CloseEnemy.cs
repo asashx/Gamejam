@@ -114,6 +114,7 @@ public class CloseEnemy : MonoBehaviour
                 wait = false;
                 waitTimeCounter = waitTime;
                 transform.localScale = new Vector3(faceDir.x, 1, 1);
+                
             }
         }
 
