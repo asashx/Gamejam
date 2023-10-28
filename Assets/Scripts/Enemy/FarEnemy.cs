@@ -12,7 +12,7 @@ public class FarEnemy : MonoBehaviour
     public Transform shootPoint;//射击出发点 
     public Transform target;//射击目标
     public float hurtForce;//击退
-    //public float damage = 1f;//伤害
+    public float damage = 1f;//伤害
     public float hitRate = 0.7f;//攻击间隔
     private float _lastHit;
     public float experienceValue;
@@ -85,7 +85,7 @@ public class FarEnemy : MonoBehaviour
         attacker = attackTrans;
         //受伤之后会造成一定的击退效果
         isHurt = true;
-        _animator.SetTrigger("hurt");//播放受击动画
+        _animator.SetTrigger("isHurt");//播放受击动画
         Vector2 dir = new Vector2(transform.position.x - attackTrans.position.x, 0).normalized;
         rb.velocity = new Vector2(0, rb.velocity.y);
         StartCoroutine(OnHurt(dir));//使用携程进行一个动作切换的时间间隔
@@ -101,7 +101,7 @@ public class FarEnemy : MonoBehaviour
     public void OnDie()
     {
         gameObject.layer = 5;//这里的第五个图层之后设置为忽略的图层，这里面的物体不会与角色产生碰撞
-        _animator.SetBool("Dead",true);
+        _animator.SetBool("isDead",true);
         isDead = true;
     }
     

@@ -21,6 +21,7 @@ public class Hit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {   
-        other.GetComponent<Character>()?.TakeDamage(this);
+        //other.GetComponent<Character>()?.TakeDamage(this);
     }
+    
 }

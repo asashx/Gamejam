@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 { 
-    public float damage = 1f;
+    public float damage;
     public float speed = 10f;
     private Rigidbody2D rb;
 
@@ -19,19 +19,7 @@ public class Bullet : MonoBehaviour
         direction.Normalize();
         rb.velocity = direction * speed;
     }
-
-    // 激活时设置存活时间和图层
-    private void OnEnable()
-    {
-        //GetComponent<SpriteRenderer>().sortingLayerName = "Player";//确定子弹的渲染层为Player
-        //这段应该可以直接删掉喵
-    }
-
-    void Update()
-    {
-        
-    }
-
+    
     // 碰撞检测
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -59,7 +47,7 @@ public class Bullet : MonoBehaviour
         // }
     }
 
-    // 眼泪销毁
+    // 子弹销毁
     public void Die()
     {
         ObjectPool.Instance.PushObject(gameObject);
