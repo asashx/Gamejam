@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f2b643168222e0846beb2d4953d47044
+guid: 68f72a0e1edd96a4aac840c7925bc248
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,16 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
-  spritePixelsToUnits: 1200
-=======
-  spritePixelsToUnits: 300
->>>>>>> e86978af75f26a3a081afa35bf72529fc93f2bb1
+  alignment: 9
+  spritePivot: {x: 0.54, y: 0.64}
+  spritePixelsToUnits: 1400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -112,42 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: "\u672A\u547D\u540D\u4F5C\u54C1-17_0"
-      rect:
-        serializedVersion: 2
-<<<<<<< HEAD
-        x: 739
-        y: 721
-        width: 800
-        height: 781
-      alignment: 0
-      pivot: {x: 0, y: 0}
-=======
-        x: 0
-        y: 0
-        width: 2048
-        height: 2048
-      alignment: 9
-      pivot: {x: 0.5473934, y: 0.54949975}
->>>>>>> e86978af75f26a3a081afa35bf72529fc93f2bb1
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-<<<<<<< HEAD
-      spriteID: 7682de5bfed36c1428d5064a8ca23dc2
-      internalID: -693632314
-=======
-      spriteID: 25f04de5beb8fc449a6a73a7a7e9da22
-      internalID: -408096274
->>>>>>> e86978af75f26a3a081afa35bf72529fc93f2bb1
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -158,12 +119,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-<<<<<<< HEAD
-      "\u672A\u547D\u540D\u4F5C\u54C1-17_0": -693632314
-=======
-      "\u672A\u547D\u540D\u4F5C\u54C1-17_0": -408096274
->>>>>>> e86978af75f26a3a081afa35bf72529fc93f2bb1
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

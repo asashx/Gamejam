@@ -13,8 +13,8 @@ public class Essence : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
-                player.AbsorbEssence(essenceName);
                 player.AbsorbAnim();
+                player.AbsorbEssence(essenceName);
             }
             Destroy(gameObject);
         }

@@ -26,13 +26,15 @@ public class Player : MonoBehaviour
     public bool touchRightWall; //角色是否触碰右墙
     public bool isSticking = false;
     private Animator anim;
-    
+    private Vector3 originalPosition;
+    private bool isInvincible = false;
+
     [Header("检测参数")]
     public Vector2 leftOffset;//左方检测
     public Vector2 rightOffset;//右方检测
     public float checkRaduis;//检测的基础范围
     public LayerMask groundLayer;
-    
+
     [Header("角色攻击")]
     public GameObject meleePrefab;
     private PolygonCollider2D meleeCollider;
@@ -87,6 +89,11 @@ public class Player : MonoBehaviour
         //Debug.Log("Check");
         Check();
         attackRateCounter += Time.deltaTime;
+
+        if (isInvincible)
+        {
+            transform.position = originalPosition;
+        }
     }
 
     private void FixedUpdate()
@@ -119,7 +126,17 @@ public class Player : MonoBehaviour
     public void AbsorbAnim()
     {
         anim.SetTrigger("absorb");
+        originalPosition = transform.position;
+        StartCoroutine(Invincible());
     }
+
+    IEnumerator Invincible()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(1f);
+        isInvincible = false;
+    }
+
     private void Attack(InputAction.CallbackContext ctx)
     {
         if (CanAttack())
@@ -145,7 +162,7 @@ public class Player : MonoBehaviour
         else
         {
             return false;
-        }        
+        }
     }
 
     private void Shoot()
@@ -174,14 +191,20 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector2(moveInput.x * speed * Time.fixedDeltaTime, rb.velocity.y);
 
         // 翻转角色
-        if (moveInput.x > 0)
+        if (moveInput.x > 0 && !isSticking)
         {
             Flip(true);
+            anim.SetBool("isRunning", true);
         }
-        else if (moveInput.x < 0)
+        else if (moveInput.x < 0 && !isSticking)
         {
             Flip(false);
-        }   
+            anim.SetBool("isRunning", true);
+        }
+        else if (moveInput.x == 0)
+        {
+            anim.SetBool("isRunning", false);
+        }
     }
 
     private void Flip(bool faceRight)
@@ -203,7 +226,7 @@ public class Player : MonoBehaviour
 
     #region 角色跳跃
     private void Jump(InputAction.CallbackContext ctx)
-    {       
+    {
         if (landed && (isGrounded || coyoteTimeCounter > 0))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -215,17 +238,20 @@ public class Player : MonoBehaviour
 
     private void Fall()
     {
-        if (rb.velocity.y < 0)
+        if (!isInvincible)
         {
-            rb.AddForce(Vector2.down * jumpForce, ForceMode2D.Force);
+            if (rb.velocity.y < 0)
+            {
+                rb.AddForce(Vector2.down * jumpForce, ForceMode2D.Force);
+            }
         }
     }
 
     public void CheckGround()
     {
         bool wasGrounded = isGrounded;
-        isGrounded = Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.65f, 0), 0.05f, LayerMask.GetMask("Ground")) ||
-                     Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.65f, 0), 0.05f, LayerMask.GetMask("Obstacle"));
+        isGrounded = Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Ground")) ||
+                     Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Obstacle"));
 
         if (!wasGrounded && isGrounded)
         {
@@ -241,14 +267,15 @@ public class Player : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
     }
-    #endregion  
-    
+    #endregion
+
     #region 角色附着机制
 
     public void Check()
-    {   
+    {
         Debug.Log("Check");
         touchLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, groundLayer);
+
         touchRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, groundLayer);
     }
 
@@ -256,13 +283,14 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, checkRaduis);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, checkRaduis);
-        Gizmos.DrawWireSphere((Vector2)transform.position - new Vector2(0, 0.65f), 0.1f);
+
+        Gizmos.DrawWireSphere((Vector2)transform.position - new Vector2(0, 0.4f), 0.1f);
     }
 
     public void Stick()
     {
         if (touchLeftWall)
-        {   
+        {
             Debug.Log("贴墙了");
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -274,7 +302,7 @@ public class Player : MonoBehaviour
         if (touchRightWall)
         {
             if (Input.GetKeyDown(KeyCode.E))
-            {   
+            {
                 Debug.Log("右墙");
                 isSticking = true;//进入贴墙状态，可以添加动画？
                 rb.velocity = Vector2.zero;//停止角色的所有移动，可能需要加上localscale的变化
@@ -285,26 +313,37 @@ public class Player : MonoBehaviour
         //     isSticking = false;//通过跳跃键退出贴墙状态，可添加动画
         // }
     }
-    
+
     private void StickMovement()
     {
+        anim.SetBool("isSticking", true);
+        if (touchLeftWall)
+        {
+            Flip(false);
+        }
+        else if (touchRightWall)
+        {
+            Flip(true);
+        }    
         // 允许上下移动
         float verticalInput = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(0, verticalInput * speed/100);
+        rb.velocity = new Vector2(0, verticalInput * speed / 200);
 
         // 在贴墙状态下进行跳跃
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isSticking = false; // 退出贴墙状态
+            anim.SetBool("isSticking", false);
         }
-        
+
         if (!touchLeftWall && !touchRightWall)
-        {   
+        {
             Debug.Log("Exit");
             // rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isSticking = false; // 退出贴墙状态
-        }    
+            anim.SetBool("isSticking", false);
+        }
     }
     #endregion
 }

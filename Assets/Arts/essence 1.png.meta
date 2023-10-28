@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 525fb8eaa1c4bd049b948d9f896337ba
+guid: 330aa93a731c43c4fae7022a4cec455b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,8 +47,8 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 9
-  spritePivot: {x: 0.2, y: 0.58}
-  spritePixelsToUnits: 1000
+  spritePivot: {x: 0.55, y: 0.6}
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: playercrawl (2)_0
+      name: essence_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +118,14 @@ TextureImporter:
         width: 2048
         height: 2048
       alignment: 9
-      pivot: {x: 0.4410216, y: 0.57898897}
+      pivot: {x: 0.5526593, y: 0.60005265}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbab568f2230c674f806c17152f27ea9
-      internalID: -1648130027
+      spriteID: d2e2a1c4bdaf87b4c8e16202dab137ad
+      internalID: 448341891
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      playercrawl (2)_0: -1648130027
+      essence_0: 448341891
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
