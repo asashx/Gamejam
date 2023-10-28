@@ -77,7 +77,6 @@ public class CloseEnemy : MonoBehaviour
     {   
         faceDir = new Vector3(-transform.localScale.x,0,0);//获取敌人的面朝方式
         
-        
         TimeCounter();
         currentState.LogicUpdate();
     }

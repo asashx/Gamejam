@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +20,16 @@ public class Player : MonoBehaviour
     public bool isGrounded = false;
     public float coyoteTime = 0.1f;
     public float coyoteTimeCounter = 0f;
-
+    public bool touchLeftWall;//角色是否触碰左墙
+    public bool touchRightWall; //角色是否触碰右墙
+    public bool isSticking = false;
+    
+    [Header("检测参数")]
+    public Vector2 leftOffset;//左方检测
+    public Vector2 rightOffset;//右方检测
+    public float checkRaduis;//检测的基础范围
+    public LayerMask groundLayer;
+    
     [Header("角色攻击")]
     public GameObject meleePrefab;
     private PolygonCollider2D meleeCollider;
@@ -69,7 +80,7 @@ public class Player : MonoBehaviour
         moveInput = playerInput.Player.Move.ReadValue<Vector2>();
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         fireDirection = mousePos - (Vector2)transform.position;
-
+        Check();
         attackRateCounter += Time.deltaTime;
     }
 
@@ -77,6 +88,11 @@ public class Player : MonoBehaviour
     {
         Move();
         CheckGround();
+        Stick();
+        if (isSticking)
+        {
+            StickMovement(); // 在贴墙状态下进行特殊移动
+        }
     }
 
     #region 角色攻击
@@ -201,6 +217,70 @@ public class Player : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
     }
-    #endregion
+    #endregion  
+    
+    #region 角色附着机制
 
+    public void Check()
+    {
+        touchLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, groundLayer);
+        touchRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, groundLayer);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, checkRaduis);
+        Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, checkRaduis);
+    }
+
+    public void Stick()
+    {
+        if (touchLeftWall)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                isSticking = true;//进入贴墙状态，可以添加动画？
+                rb.velocity = Vector2.zero;//停止角色的所有移动
+            }
+        }
+        if (touchRightWall)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                isSticking = true;//进入贴墙状态，可以添加动画？
+                rb.velocity = Vector2.zero;//停止角色的所有移动，可能需要加上localscale的变化
+            }
+        }
+        // if (isSticking && Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     isSticking = false;//通过跳跃键退出贴墙状态，可添加动画
+        // }
+    }
+    
+    private void StickMovement()
+    {
+        // 允许上下移动
+        float verticalInput = Input.GetAxis("Vertical");
+        rb.velocity = new Vector2(0, verticalInput * speed);
+
+        // 在贴墙状态下进行跳跃
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isSticking = false; // 退出贴墙状态
+        }
+
+        if (!touchRightWall)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isSticking = false; // 退出贴墙状态
+        }    
+        
+        if (!touchLeftWall)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isSticking = false; // 退出贴墙状态
+        }    
+    }
+    #endregion
 }
