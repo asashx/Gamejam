@@ -14,7 +14,7 @@ public class Essence : MonoBehaviour
             if (player != null)
             {
                 player.AbsorbEssence(essenceName);
-                // player.AbsorbAnim();
+                player.AbsorbAnim();
             }
             Destroy(gameObject);
         }

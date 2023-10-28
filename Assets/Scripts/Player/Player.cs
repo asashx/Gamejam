@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public bool touchLeftWall;//角色是否触碰左墙
     public bool touchRightWall; //角色是否触碰右墙
     public bool isSticking = false;
+    private Animator anim;
     
     [Header("检测参数")]
     public Vector2 leftOffset;//左方检测
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
         playerInput = new PlayerInput();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
 
         // 获取射击点
         bulletSpawnPoint = transform.Find("Shoot");
@@ -114,10 +116,10 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-    // public void AbsorbAnim()
-    // {
-    //     anim.SetTrigger("Absorb");
-    // }
+    public void AbsorbAnim()
+    {
+        anim.SetTrigger("absorb");
+    }
     private void Attack(InputAction.CallbackContext ctx)
     {
         if (CanAttack())
@@ -222,8 +224,8 @@ public class Player : MonoBehaviour
     public void CheckGround()
     {
         bool wasGrounded = isGrounded;
-        isGrounded = Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Ground")) ||
-                     Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Obstacle"));
+        isGrounded = Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.65f, 0), 0.05f, LayerMask.GetMask("Ground")) ||
+                     Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.65f, 0), 0.05f, LayerMask.GetMask("Obstacle"));
 
         if (!wasGrounded && isGrounded)
         {
@@ -255,6 +257,8 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, checkRaduis);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, checkRaduis);
+        
+        Gizmos.DrawWireSphere((Vector2)transform.position - new Vector2(0, 0.65f), 0.1f);
     }
 
     public void Stick()
