@@ -19,7 +19,7 @@ public class CloseChaseState : BaseState
         {
             currentEnemy.SwitchState(NPCState.Patrol);
         }
-        if (!currentEnemy.physicCheck.isGround || (currentEnemy.physicCheck.touchRightWall && currentEnemy.faceDir.x > 0))
+        if (!currentEnemy.physicCheck.isGround || (currentEnemy.physicCheck.touchRightWall && currentEnemy.faceDir.x > 0) ||(currentEnemy.physicCheck.touchLeftWall && currentEnemy.faceDir.x < 0))
         {
             currentEnemy.transform.localScale = new Vector3(currentEnemy.faceDir.x, 1, 1);
             //currentEnemy.anim.SetBool("Move",false);

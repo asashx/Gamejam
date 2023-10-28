@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Obstacle
   - Attack
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 2618472355
+    locked: 0
+  - name: Player
+    uniqueID: 2918980193
+    locked: 0
+  - name: Enemy
+    uniqueID: 2806372633
     locked: 0

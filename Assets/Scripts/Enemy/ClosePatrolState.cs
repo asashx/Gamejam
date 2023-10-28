@@ -19,7 +19,7 @@ public class ClosePatrolState : BaseState
        {
            currentEnemy.SwitchState(NPCState.Chase);
        }
-       if (!currentEnemy.physicCheck.isGround || (currentEnemy.physicCheck.touchRightWall && currentEnemy.faceDir.x > 0))
+       if (!currentEnemy.physicCheck.isGround || (currentEnemy.physicCheck.touchRightWall && currentEnemy.faceDir.x > 0) ||(currentEnemy.physicCheck.touchLeftWall && currentEnemy.faceDir.x < 0))
        {      
            Debug.Log("撞墙");
            currentEnemy.wait = true;
@@ -27,6 +27,7 @@ public class ClosePatrolState : BaseState
        }
        else
        {
+           currentEnemy.wait = false;
            //currentEnemy.anim.SetBool("Move",true);
        }
     }

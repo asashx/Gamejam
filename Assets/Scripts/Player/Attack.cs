@@ -32,5 +32,15 @@ public class Attack : MonoBehaviour
                 destroyObstacle.DestroyTile(hitPos);
             }
         }
+
+        // if (other.CompareTag("Enemy"))
+        // {
+        //     EnemyBehaviour enemyBehaviour = other.GetComponent<EnemyBehaviour>();
+        //     if (enemyBehaviour != null)
+        //     {
+        //         enemyBehaviour.TakeDamage(damage);
+        //     }
+        // }
     }
 }
+

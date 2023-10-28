@@ -24,12 +24,12 @@ public class PhysicCheck : MonoBehaviour
         // isDead = false;
         //anim = GetComponent<Animator>();
         coll = GetComponent<CapsuleCollider2D>();//获取组件
-        if (!manual)
-        {   
-            //判断下左右的检测范围
-            rightOffset = new Vector2((coll.bounds.size.x + coll.offset.x)/2,coll.bounds.size.y/2);
-            leftOffset = new Vector2(-(coll.bounds.size.x + coll.offset.x)/2,coll.bounds.size.y/2);
-        }
+        // if (!manual)
+        // {   
+        //     //判断下左右的检测范围
+        //     rightOffset = new Vector2((coll.bounds.size.x + coll.offset.x)/2,coll.bounds.size.y/2);
+        //     leftOffset = new Vector2(-(coll.bounds.size.x + coll.offset.x)/2,coll.bounds.size.y/2);
+        // }
 
         //waitTimeCounter = waitTime;
     }
