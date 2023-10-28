@@ -80,6 +80,7 @@ public class Player : MonoBehaviour
         moveInput = playerInput.Player.Move.ReadValue<Vector2>();
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         fireDirection = mousePos - (Vector2)transform.position;
+        //Debug.Log("Check");
         Check();
         attackRateCounter += Time.deltaTime;
     }
@@ -222,8 +223,10 @@ public class Player : MonoBehaviour
     #region 角色附着机制
 
     public void Check()
-    {
+    {   
+        Debug.Log("Check");
         touchLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, groundLayer);
+        
         touchRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, groundLayer);
     }
 
@@ -236,17 +239,20 @@ public class Player : MonoBehaviour
     public void Stick()
     {
         if (touchLeftWall)
-        {
+        {   
+            Debug.Log("贴墙了");
             if (Input.GetKeyDown(KeyCode.E))
             {
                 isSticking = true;//进入贴墙状态，可以添加动画？
                 rb.velocity = Vector2.zero;//停止角色的所有移动
+                Debug.Log("进入了");
             }
         }
         if (touchRightWall)
         {
             if (Input.GetKeyDown(KeyCode.E))
-            {
+            {   
+                Debug.Log("右墙");
                 isSticking = true;//进入贴墙状态，可以添加动画？
                 rb.velocity = Vector2.zero;//停止角色的所有移动，可能需要加上localscale的变化
             }
@@ -261,7 +267,7 @@ public class Player : MonoBehaviour
     {
         // 允许上下移动
         float verticalInput = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(0, verticalInput * speed);
+        rb.velocity = new Vector2(0, verticalInput * speed/200);
 
         // 在贴墙状态下进行跳跃
         if (Input.GetKeyDown(KeyCode.Space))
@@ -269,15 +275,10 @@ public class Player : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isSticking = false; // 退出贴墙状态
         }
-
-        if (!touchRightWall)
-        {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isSticking = false; // 退出贴墙状态
-        }    
         
-        if (!touchLeftWall)
-        {
+        if (!touchLeftWall && !touchRightWall)
+        {   
+            Debug.Log("Exit");
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isSticking = false; // 退出贴墙状态
         }    
