@@ -191,12 +191,12 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector2(moveInput.x * speed * Time.fixedDeltaTime, rb.velocity.y);
 
         // 翻转角色
-        if (moveInput.x > 0)
+        if (moveInput.x > 0 && !isSticking)
         {
             Flip(true);
             anim.SetBool("isRunning", true);
         }
-        else if (moveInput.x < 0)
+        else if (moveInput.x < 0 && !isSticking)
         {
             Flip(false);
             anim.SetBool("isRunning", true);
@@ -316,6 +316,15 @@ public class Player : MonoBehaviour
 
     private void StickMovement()
     {
+        anim.SetBool("isSticking", true);
+        if (touchLeftWall)
+        {
+            Flip(false);
+        }
+        else if (touchRightWall)
+        {
+            Flip(true);
+        }    
         // 允许上下移动
         float verticalInput = Input.GetAxis("Vertical");
         rb.velocity = new Vector2(0, verticalInput * speed / 200);
@@ -325,6 +334,7 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isSticking = false; // 退出贴墙状态
+            anim.SetBool("isSticking", false);
         }
 
         if (!touchLeftWall && !touchRightWall)
@@ -332,6 +342,7 @@ public class Player : MonoBehaviour
             Debug.Log("Exit");
             // rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isSticking = false; // 退出贴墙状态
+            anim.SetBool("isSticking", false);
         }
     }
     #endregion
