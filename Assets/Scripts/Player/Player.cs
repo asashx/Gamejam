@@ -38,9 +38,12 @@ public class Player : MonoBehaviour
     [Header("角色攻击")]
     public GameObject meleePrefab;
     private PolygonCollider2D meleeCollider;
+    public GameObject lungePrefab;
+    private PolygonCollider2D lungeCollider;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public bool canShoot = false;
+    public int attackForm = 0;
     private float attackRate = 0.2f;
     private float attackRateCounter = 0f;
     private Vector2 fireDirection = Vector2.zero;
@@ -58,6 +61,9 @@ public class Player : MonoBehaviour
 
         // 获取近战碰撞体
         meleeCollider = meleePrefab.GetComponent<PolygonCollider2D>();
+
+        // 获取冲刺碰撞体
+        lungeCollider = lungePrefab.GetComponent<PolygonCollider2D>();
 
         // 触发跳跃
         playerInput.Player.Jump.started += Jump;
@@ -130,6 +136,15 @@ public class Player : MonoBehaviour
         StartCoroutine(Invincible());
     }
 
+    public void LevelUp()
+    {
+        attackForm++;
+        if (attackForm > 2)
+        {
+            attackForm = 2;
+        }
+    }
+
     IEnumerator Invincible()
     {
         isInvincible = true;
@@ -147,7 +162,17 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Melee();
+                switch (attackForm)
+                {
+                    case 0:
+                        Melee();
+                        break;
+                    case 1:
+                        Lunge();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -175,6 +200,7 @@ public class Player : MonoBehaviour
     private void Melee()
     {
         meleeCollider.enabled = true;
+        anim.SetBool("isMelee", true);
         StartCoroutine(DisableMeleeCollider());
     }
 
@@ -182,6 +208,21 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         meleeCollider.enabled = false;
+        anim.SetBool("isMelee", false);
+    }
+
+    private void Lunge()
+    {
+        lungeCollider.enabled = true;
+        anim.SetBool("isLunge", true);
+        StartCoroutine(DisableLungeCollider());
+    }
+
+    IEnumerator DisableLungeCollider()
+    {
+        yield return new WaitForSeconds(0.2f);
+        lungeCollider.enabled = false;
+        anim.SetBool("isLunge", false);
     }
     #endregion
 
