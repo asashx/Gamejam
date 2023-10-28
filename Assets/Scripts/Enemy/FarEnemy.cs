@@ -13,12 +13,12 @@ public class FarEnemy : MonoBehaviour
     public Transform target;//射击目标
     public float hurtForce;//击退
     //public float damage = 1f;//伤害
-    public float hitRate = 2.5f;//攻击间隔
+    public float hitRate = 0.7f;//攻击间隔
     private float _lastHit;
     public float experienceValue;
     public GameObject bulletPrefab; //子弹
     private Animator _animator;
-    private SphereCollider attackRangeCollider;//判断射击范围
+    public float attackRange;//判断射击范围
 
     [Header("吸收")] 
     public GameObject shootEssencePrefab;
@@ -34,7 +34,6 @@ public class FarEnemy : MonoBehaviour
         playerBar = GetComponent<PlayerBar>();
         shootPoint = transform.Find("ShootPoint");
         ObjectPool objectPool = ObjectPool.Instance;//查看对象池
-        attackRangeCollider = GetComponent<SphereCollider>(); // 获取SphereCollider组件
         if (objectPool == null)
         {
             Debug.LogError("ObjectPool.Instance is null!");
@@ -51,7 +50,7 @@ public class FarEnemy : MonoBehaviour
         // 计算目标与敌人的距离
         float distanceToTarget = Vector3.Distance(target.position, transform.position);
 
-        if (distanceToTarget <= attackRangeCollider.radius)
+        if (distanceToTarget <= attackRange)
         {
             if (Time.time > _lastHit + 1 / hitRate)
             {
@@ -59,6 +58,10 @@ public class FarEnemy : MonoBehaviour
                 _lastHit = Time.time;
             }
         }
+
+        faceDir.x = -(target.position.x - transform.position.x)/(Mathf.Abs(target.position.x - transform.position.x));
+        transform.localScale = new Vector3(faceDir.x,1,1);
+
     }
     
     private void Shoot()

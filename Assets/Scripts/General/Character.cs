@@ -7,7 +7,6 @@ public class Character : MonoBehaviour
 {
     [Header("基础属性")] 
     public float maxHealth;
-
     public float currentHealth;
 
     [Header("受伤无敌")] 

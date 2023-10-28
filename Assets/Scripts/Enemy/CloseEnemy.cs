@@ -9,7 +9,7 @@ public class CloseEnemy : MonoBehaviour
     private Rigidbody2D rb;
     //protected Animator anim;
     private CapsuleCollider2D coll;
-    [HideInInspector] public PhysicCheck physicCheck;//调用脚本，隐藏
+    public PhysicCheck physicCheck;//调用脚本，隐藏
     
     [Header("基本参数")] 
     public float normalSpeed;//基础速度
@@ -27,13 +27,11 @@ public class CloseEnemy : MonoBehaviour
     public LayerMask attackLayer;
     
     [Header("状态")] 
-    // public bool touchLeftWall;//移动怪物是否触碰左墙
-    // public bool touchRightWall; //移动怪物是否触碰右墙
     public bool isHurt;
     public bool isDead;
     
     [Header("计时器")] 
-    public bool wait;
+    public bool wait = false;
     public float waitTimeCounter;
     public float waitTime;
     public float lostTime;
@@ -75,6 +73,7 @@ public class CloseEnemy : MonoBehaviour
 
     private void Update()
     {   
+        //Debug.Log("HUH");
         faceDir = new Vector3(-transform.localScale.x,0,0);//获取敌人的面朝方式
         
         TimeCounter();
@@ -98,14 +97,16 @@ public class CloseEnemy : MonoBehaviour
 
     public virtual void Move()//希望可以复写
     {   
-        //Debug.Log("移动");
+        Debug.Log("移动");
         rb.velocity = new Vector2(currentSpeed *  faceDir.x, rb.velocity.y);//设置了敌人的移动
     }
     
     public void TimeCounter()//计时器
     {   
         if (wait)
-        {
+        {   
+            Debug.Log("wait");
+            rb.velocity = Vector2.zero; 
             waitTimeCounter -= Time.deltaTime;
             if (waitTimeCounter <= 0)
             {   
@@ -113,6 +114,7 @@ public class CloseEnemy : MonoBehaviour
                 wait = false;
                 waitTimeCounter = waitTime;
                 transform.localScale = new Vector3(faceDir.x, 1, 1);
+                
             }
         }
 
@@ -133,7 +135,7 @@ public class CloseEnemy : MonoBehaviour
         
     }
 
-    public void SwitchState(NPCState state)
+    public void SwitchState(NPCState state)//通过枚举进行状态切换
     {
         var newState = state switch
         {
@@ -141,7 +143,7 @@ public class CloseEnemy : MonoBehaviour
             NPCState.Chase => chaseState,
             _ => null
         };
-        //通过枚举进行状态切换
+        
         currentState.OnExit();
         currentState = newState;
         currentState.OnEnter(this);
@@ -155,11 +157,11 @@ public class CloseEnemy : MonoBehaviour
         
         if (attackTrans.position.x - transform.position.x > 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(1,1, 1);
         }
         if (attackTrans.position.x - transform.position.x < 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(1,1, 1);
         }
         //受伤之后会造成一定的击退效果
         isHurt = true;
