@@ -9,7 +9,8 @@ public class CameraManager : MonoBehaviour
 
     private void LateUpdate() {
         if (target != null) {
-            if(transform.position != target.position) {
+            if(transform.position != target.position) 
+            {
                 Vector3 targetPos = new Vector3(target.position.x, target.position.y, transform.position.z);
                 transform.position = Vector3.Lerp(transform.position, targetPos, smoothSpeed);
             }

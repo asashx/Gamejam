@@ -203,7 +203,7 @@ public class Player : MonoBehaviour
 
     #region 角色跳跃
     private void Jump(InputAction.CallbackContext ctx)
-    {        
+    {       
         if (landed && (isGrounded || coyoteTimeCounter > 0))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -249,7 +249,6 @@ public class Player : MonoBehaviour
     {   
         Debug.Log("Check");
         touchLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, groundLayer);
-        
         touchRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, groundLayer);
     }
 
@@ -257,7 +256,6 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, checkRaduis);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, checkRaduis);
-        
         Gizmos.DrawWireSphere((Vector2)transform.position - new Vector2(0, 0.65f), 0.1f);
     }
 
@@ -292,7 +290,7 @@ public class Player : MonoBehaviour
     {
         // 允许上下移动
         float verticalInput = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(0, verticalInput * speed/200);
+        rb.velocity = new Vector2(0, verticalInput * speed/100);
 
         // 在贴墙状态下进行跳跃
         if (Input.GetKeyDown(KeyCode.Space))
