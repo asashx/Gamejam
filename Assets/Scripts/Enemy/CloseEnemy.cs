@@ -18,7 +18,8 @@ public class CloseEnemy : MonoBehaviour
     public Vector3 faceDir;//面朝对象
     public Transform attacker;//被攻击的对象
     public float hurtForce;
-
+    public float experienceValue;
+    
     [Header("检测")]
     public Vector2 centerOffset;
     public Vector2 checkSize;
@@ -40,6 +41,7 @@ public class CloseEnemy : MonoBehaviour
     
     [Header("吸收")]
     public GameObject meleeEssencePrefab;
+    public PlayerBar playerBar;
 
     private BaseState currentState;
     protected BaseState patrolState;
@@ -50,6 +52,7 @@ public class CloseEnemy : MonoBehaviour
         isHurt = false;
         isDead = false;
         rb = GetComponent<Rigidbody2D>();
+        playerBar = GetComponent<PlayerBar>();
         physicCheck = GetComponent<PhysicCheck>();
         //anim = GetComponent<Animator>();
         coll = GetComponent<CapsuleCollider2D>();//获取组件
@@ -186,6 +189,10 @@ public class CloseEnemy : MonoBehaviour
         if (meleeEssencePrefab != null)
         {
             Instantiate(meleeEssencePrefab, transform.position, Quaternion.identity); // 生成ShootEssence预制体
+        }
+        if (playerBar != null) // 检查是否为空
+        {
+            playerBar.AddExperienceF(experienceValue); // 触发事件并传递经验值
         }
         Destroy(this.gameObject);//播放死亡动画后摧毁物体
     }

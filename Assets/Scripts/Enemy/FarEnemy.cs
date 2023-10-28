@@ -111,8 +111,9 @@ public class FarEnemy : MonoBehaviour
         
         if (playerBar != null) // 检查是否为空
         {
-            playerBar.AddExperience(experienceValue); // 触发事件并传递经验值
+            playerBar.AddExperienceF(experienceValue); // 触发事件并传递经验值
         }
+        Destroy(this.gameObject);//播放死亡动画后摧毁物体
     }
 
 }

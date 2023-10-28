@@ -42,16 +42,28 @@ public class PlayerBar : MonoBehaviour
         
     }
 
-    public void AddExperiencef(float experienceAmount)
+    public void AddExperienceF(float experienceAmount)
     {
         currentExperienceF += experienceAmount;
         currentExperienceF = Mathf.Clamp(currentExperienceF, 0, maxExperienceF); // 确保经验值不超过最大值
     }
-
+    
+    public void AddExperienceC(float experienceAmount)
+    {
+        currentExperienceF += experienceAmount;
+        currentExperienceF = Mathf.Clamp(currentExperienceF, 0, maxExperienceF); // 确保经验值不超过最大值
+    }
     public void OnExperienceChangeF()
     {   
         // 计算经验条的填充比例
         float experienceFillAmount = currentExperienceF / maxExperienceF;
         experienceIamgeF.fillAmount = Mathf.Lerp(experienceIamgeF.fillAmount, experienceFillAmount, lerpSpeed * Time.deltaTime);
+    }
+    
+    public void OnExperienceChangeC()
+    {   
+        // 计算经验条的填充比例
+        float experienceFillAmount = currentExperienceC / maxExperienceC;
+        experienceIamgeC.fillAmount = Mathf.Lerp(experienceIamgeC.fillAmount, experienceFillAmount, lerpSpeed * Time.deltaTime);
     }
 }
