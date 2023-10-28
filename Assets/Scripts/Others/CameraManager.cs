@@ -6,12 +6,15 @@ public class CameraManager : MonoBehaviour
 {
     public Transform target;
     public float smoothSpeed = 1f;
+    private Vector3 targetPos;
 
-    private void LateUpdate() {
+    private void LateUpdate()
+    {   
+        targetPos = target.position + new Vector3(3f, 3f, 0);
         if (target != null) {
-            if(transform.position != target.position) {
-                Vector3 targetPos = new Vector3(target.position.x, target.position.y, transform.position.z);
-                transform.position = Vector3.Lerp(transform.position, targetPos, smoothSpeed);
+            if(transform.position != targetPos) {
+                Vector3 targetPosition = new Vector3(targetPos.x, targetPos.y, transform.position.z);
+                transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
             }
         }
     }

@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public bool touchRightWall; //角色是否触碰右墙
     public bool isSticking = false;
     private Animator anim;
+    private Vector3 originalPosition;
+    private bool isInvincible = false;
     
     [Header("检测参数")]
     public Vector2 leftOffset;//左方检测
@@ -87,6 +89,11 @@ public class Player : MonoBehaviour
         //Debug.Log("Check");
         Check();
         attackRateCounter += Time.deltaTime;
+
+        if (isInvincible)
+        {
+            transform.position = originalPosition;
+        }
     }
 
     private void FixedUpdate()
@@ -119,7 +126,17 @@ public class Player : MonoBehaviour
     public void AbsorbAnim()
     {
         anim.SetTrigger("absorb");
+        originalPosition = transform.position;
+        StartCoroutine(Invincible());
     }
+
+    IEnumerator Invincible()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(1f);
+        isInvincible = false;
+    }
+
     private void Attack(InputAction.CallbackContext ctx)
     {
         if (CanAttack())
