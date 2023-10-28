@@ -327,7 +327,7 @@ public class Player : MonoBehaviour
         }    
         // 允许上下移动
         float verticalInput = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(0, verticalInput * speed / 200);
+        rb.velocity = new Vector2(0, verticalInput * speed / 50);
 
         // 在贴墙状态下进行跳跃
         if (Input.GetKeyDown(KeyCode.Space))
