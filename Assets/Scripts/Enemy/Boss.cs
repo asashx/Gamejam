@@ -57,12 +57,12 @@ public class Boss : MonoBehaviour
         }
         if (distanceToTarget <= hitRange)
         {
-            if (Time.time > _lastHit + 1 / hitRate)
-            {
-                Shoot();
-                Hit();
-                _lastHit = Time.time;
-            }
+            // if (Time.time > _lastHit + 1 / hitRate)
+            // {
+            //     Shoot();
+            //     Hit();
+            //     _lastHit = Time.time;
+            // }
         }
     }
     
