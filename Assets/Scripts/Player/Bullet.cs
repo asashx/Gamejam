@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // 眼泪发射方向
+    // 子弹发射方向
     public void SetSpeed(Vector2 direction)
     {
         direction.Normalize();
@@ -23,7 +23,8 @@ public class Bullet : MonoBehaviour
     // 激活时设置存活时间和图层
     private void OnEnable()
     {
-        GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+        //GetComponent<SpriteRenderer>().sortingLayerName = "Player";//确定子弹的渲染层为Player
+        //这段应该可以直接删掉喵
     }
 
     void Update()
