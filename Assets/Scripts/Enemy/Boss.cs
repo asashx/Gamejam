@@ -49,20 +49,16 @@ public class Boss : MonoBehaviour
 
         if (distanceToTarget <= shootRange)
         {
-            
-               
                 Debug.Log("HELLO");
                 Shoot();
                 //_lastHit = Time.time;
         }
-        if (distanceToTarget <= hitRange)
+        else if (distanceToTarget <= hitRange)
         {
-            if (Time.time > _lastHit + 1 / hitRate)
-            {
-                Shoot();
-                Hit();
-                _lastHit = Time.time;
-            }
+            
+                 Shoot();
+                 Hit();
+                 //_lastHit = Time.time;
         }
     }
     
@@ -148,6 +144,7 @@ public class Boss : MonoBehaviour
 
 private void Hit()
 {
+    Vector2 position = target.position;
     
 }
 
@@ -180,11 +177,6 @@ private void Hit()
     
     public void DestroyObject()
     {
-        // if (shootEssencePrefab != null)
-        // {
-        //     Instantiate(shootEssencePrefab, transform.position, Quaternion.identity); // 生成ShootEssence预制体
-        // }
-        
         if (playerBar != null) // 检查是否为空
         {
             playerBar.AddExperienceF(experienceValue); // 触发事件并传递经验值

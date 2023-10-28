@@ -33,14 +33,14 @@ public class Attack : MonoBehaviour
             }
         }
 
-        // if (other.CompareTag("Enemy"))
-        // {
-        //     EnemyBehaviour enemyBehaviour = other.GetComponent<EnemyBehaviour>();
-        //     if (enemyBehaviour != null)
-        //     {
-        //         enemyBehaviour.TakeDamage(damage);
-        //     }
-        // }
+        if (other.CompareTag("Enemy"))
+        {
+            Character character = other.GetComponent<Character>();
+            if (character != null)
+            {
+                character.TakeDamage(damage);
+            }
+        }
     }
 }
 
