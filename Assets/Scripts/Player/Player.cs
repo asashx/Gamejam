@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
     private PolygonCollider2D meleeCollider;
     public GameObject lungePrefab;
     private PolygonCollider2D lungeCollider;
+    public GameObject slashPrefab;
+    private PolygonCollider2D slashCollider;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public bool canShoot = false;
@@ -64,6 +66,9 @@ public class Player : MonoBehaviour
 
         // 获取冲刺碰撞体
         lungeCollider = lungePrefab.GetComponent<PolygonCollider2D>();
+
+        // 获取斩击碰撞体
+        slashCollider = slashPrefab.GetComponent<PolygonCollider2D>();
 
         // 触发跳跃
         playerInput.Player.Jump.started += Jump;
@@ -170,6 +175,9 @@ public class Player : MonoBehaviour
                     case 1:
                         Lunge();
                         break;
+                    case 2:
+                        Slash();
+                        break;
                     default:
                         break;
                 }
@@ -223,6 +231,20 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         lungeCollider.enabled = false;
         anim.SetBool("isLunge", false);
+    }
+
+    private void Slash()
+    {
+        slashCollider.enabled = true;
+        anim.SetBool("isSlash", true);
+        StartCoroutine(DisableSlashCollider());
+    }
+
+    IEnumerator DisableSlashCollider()
+    {
+        yield return new WaitForSeconds(0.2f);
+        slashCollider.enabled = false;
+        anim.SetBool("isSlash", false);
     }
     #endregion
 
