@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     [Header("角色状态")]
     public bool isGrounded = false;
     public bool isJumping = false;
-    public bool justJumped = false;
+    public bool landed = false;
     public float coyoteTime = 0.1f;
     public float coyoteTimeCounter = 0f;
     public bool touchLeftWall;//角色是否触碰左墙
@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
     {
         Move();
         CheckGround();
+        Fall();
         Stick();
         if (isSticking)
         {
@@ -201,11 +202,20 @@ public class Player : MonoBehaviour
     #region 角色跳跃
     private void Jump(InputAction.CallbackContext ctx)
     {        
-        if (!justJumped && (isGrounded || coyoteTimeCounter > 0))
+        if (landed && (isGrounded || coyoteTimeCounter > 0))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             coyoteTimeCounter = 0;
             isJumping = true;
+            landed = false;
+        }
+    }
+
+    private void Fall()
+    {
+        if (rb.velocity.y < 0)
+        {
+            rb.AddForce(Vector2.down * jumpForce, ForceMode2D.Force);
         }
     }
 
@@ -215,9 +225,9 @@ public class Player : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Ground")) ||
                      Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Obstacle"));
 
-        if (wasGrounded && !isGrounded)
+        if (!wasGrounded && isGrounded)
         {
-            isJumping = true;
+            landed = true;
         }
         if (isGrounded)
         {
