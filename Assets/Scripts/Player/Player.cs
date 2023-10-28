@@ -241,8 +241,8 @@ public class Player : MonoBehaviour
     public void CheckGround()
     {
         bool wasGrounded = isGrounded;
-        isGrounded = Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.65f, 0), 0.05f, LayerMask.GetMask("Ground")) ||
-                     Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.65f, 0), 0.05f, LayerMask.GetMask("Obstacle"));
+        isGrounded = Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Ground")) ||
+                     Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.4f, 0), 0.05f, LayerMask.GetMask("Obstacle"));
 
         if (!wasGrounded && isGrounded)
         {
@@ -275,7 +275,7 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, checkRaduis);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, checkRaduis);
         
-        Gizmos.DrawWireSphere((Vector2)transform.position - new Vector2(0, 0.65f), 0.1f);
+        Gizmos.DrawWireSphere((Vector2)transform.position - new Vector2(0, 0.4f), 0.1f);
     }
 
     public void Stick()
