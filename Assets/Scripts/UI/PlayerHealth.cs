@@ -6,19 +6,22 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
    public GameObject Hearts;
-   public Player player;
+   public GameObject player;
+   private Character playerCharacter; // 用于保存获取的 Character 脚本引用
 
    private void Awake()
    {
-	   player = GetComponent<Player>();
+	   // 如果你不需要在 Awake 中获取 Character 脚本，你可以注释掉下面的行：
+	    playerCharacter = player.GetComponent<Character>();
    }
-
+  
    private void Update()
-   {
+   {	
+	   
 	   if (player != null)
 	   {
-		   float currentHealth = player.currentHealth;
-		   Debug.Log("Health:" + player.currentHealth);
+		   float currentHealth = playerCharacter.currentHealth;
+		   Debug.Log("Health:" + playerCharacter.currentHealth);
 		   ChangeHealth(currentHealth);
 	   }
    }
