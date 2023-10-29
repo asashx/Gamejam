@@ -142,13 +142,14 @@ MonoBehaviour:
   touchLeftWall: 0
   touchRightWall: 0
   isSticking: 0
+  currentHealth: 0
   leftOffset: {x: -0.2, y: 0}
   rightOffset: {x: 0.2, y: 0}
   checkRaduis: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  Character: {fileID: 0}
+  character: {fileID: 0}
   meleePrefab: {fileID: 5195239272317459674}
   lungePrefab: {fileID: 1612682845006683885}
   slashPrefab: {fileID: 4556850888190541119}
@@ -636,7 +637,7 @@ Transform:
   m_GameObject: {fileID: 6562609129101708881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06, y: 0, z: 0}
+  m_LocalPosition: {x: 0.06, y: 0.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

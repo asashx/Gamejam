@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     private float attackRateCounter = 0f;
     private Vector2 fireDirection = Vector2.zero;
     private Vector2 mousePos;
+    private Camera camera;
 
     private void Awake()
     {
@@ -60,6 +61,7 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         character = GetComponent<Character>();
+        camera = Camera.main;
 
         // 获取射击点
         bulletSpawnPoint = transform.Find("Shoot");
@@ -98,7 +100,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         moveInput = playerInput.Player.Move.ReadValue<Vector2>();
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
         fireDirection = mousePos - (Vector2)transform.position;
         //Debug.Log("Check");
         Check();
@@ -206,6 +208,7 @@ public class Player : MonoBehaviour
     {
         GameObject bullet = ObjectPool.Instance.GetObject(bulletPrefab);
         bullet.transform.position = bulletSpawnPoint.position;
+        anim.SetTrigger("isShoot");
         bullet.GetComponent<Bullet>().SetSpeed(fireDirection);
     }
 
