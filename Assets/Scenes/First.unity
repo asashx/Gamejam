@@ -1351,6 +1351,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1131552076110262687, guid: 53965d6fd5e9e59499743545b9e9316b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ad0a9df53ac68c941ae353e5acf9e5d7, type: 2}
+    - target: {fileID: 1131552076110262687, guid: 53965d6fd5e9e59499743545b9e9316b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8980097060826963136, guid: ad0a9df53ac68c941ae353e5acf9e5d7, type: 2}
+    - target: {fileID: 1131552076110262687, guid: 53965d6fd5e9e59499743545b9e9316b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1990656847043189503, guid: 53965d6fd5e9e59499743545b9e9316b, type: 3}
       propertyPath: player
       value: 
@@ -3870,7 +3882,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 8.703878
+      m_AnimationSpeed: 9.436974
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 27, y: -9, z: 0}
@@ -3889,7 +3901,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 9.510913
+      m_AnimationSpeed: 8.036853
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 28, y: -9, z: 0}
@@ -3908,7 +3920,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 8.838604
+      m_AnimationSpeed: 8.829269
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 29, y: -9, z: 0}
@@ -3927,7 +3939,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 9.437274
+      m_AnimationSpeed: 8.789207
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
