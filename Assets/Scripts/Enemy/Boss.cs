@@ -18,7 +18,8 @@ public class Boss : MonoBehaviour
     public Transform shootPoint1;//射击出发点 
     public Transform target;//射击目标
     public float damage = 1f;//伤害
-    //private float _lastHit;上次攻击的时间
+    public float hitRate = 2.5f;//攻击间隔
+    private float _lastHit;//上次攻击的时间
     public float experienceValue;
     public GameObject bulletPrefab; //子弹
     public GameObject specialbulletPrefab; //追踪子弹
@@ -43,6 +44,7 @@ public class Boss : MonoBehaviour
         {
             Debug.LogError("ObjectPool.Instance is null!");
         }
+        InvokeRepeating("Shoot", 5f, 5f);
     }
     
     void Update()
@@ -57,27 +59,20 @@ public class Boss : MonoBehaviour
 
         //GenerateSpikesAttack();
 
-        if (distanceToTarget <= shootRange)
-        {
-                Debug.Log("HELLO");
-                Shoot();
-                //_lastHit = Time.time;
-        }
-        else if (distanceToTarget <= hitRange)
-        {
-
-            
-                 Shoot();
-                 //GenerateSpikesAttack();
-                 //_lastHit = Time.time;
-                 // if (Time.time > _lastHit + 1 / hitRate)
-                 // {
-                 //     Shoot();
-                 //     Hit();
-                 //     _lastHit = Time.time;
-                 // }
-
-        }
+        // if (distanceToTarget <= shootRange)
+        // {
+        //         Debug.Log("HELLO");
+        //         
+        //          _lastHit = Time.time;
+        //          if (Time.time > _lastHit +  1/hitRate)
+        //          {  
+        //              Debug.Log("shoot");
+        //              Shoot();
+        //              //Hit();
+        //              _lastHit = Time.time;
+        //          }
+        // }
+        
     }
     
     #region 尝试编写三段弹幕
@@ -109,31 +104,31 @@ public class Boss : MonoBehaviour
             float delayBetweenBullets2 = 1f;
             
             // 创建第二颗子弹，添加角度偏移
-            float bulletSpreadAngle1 = 10.0f; // 角度偏移
+            float bulletSpreadAngle1 = 5.0f; // 角度偏移
             Quaternion bulletRotation1 = Quaternion.Euler(0, 0, bulletSpreadAngle1);
             // 计算第二颗子弹的速度方向，朝向目标的方向加上角度偏移
             Vector3 secondBulletDirection = bulletRotation1 * shootDirection;
             
             // 创建第三颗子弹，添加角度偏移
-            float bulletSpreadAngle2 = 20.0f; // 角度偏移
+            float bulletSpreadAngle2 = 10.0f; // 角度偏移
             Quaternion bulletRotation2 = Quaternion.Euler(0, 0, bulletSpreadAngle2);
             // 计算第三颗子弹的速度方向，朝向目标的方向加上角度偏移
             Vector3 thirdBulletDirection = bulletRotation2 * shootDirection;
             
             // 创建第四颗子弹，添加角度偏移
-            float bulletSpreadAngle3 = 30.0f; // 角度偏移
+            float bulletSpreadAngle3 = 15.0f; // 角度偏移
             Quaternion bulletRotation3 = Quaternion.Euler(0, 0, bulletSpreadAngle3);
             // 计算第四颗子弹的速度方向，朝向目标的方向加上角度偏移
             Vector3 fourthBulletDirection = bulletRotation3 * shootDirection;
             
             // 创建第五颗子弹，添加角度偏移
-            float bulletSpreadAngle4 = 40.0f; // 角度偏移，你可以根据需要调整
+            float bulletSpreadAngle4 = 20.0f; // 角度偏移，你可以根据需要调整
             Quaternion bulletRotation4 = Quaternion.Euler(0, 0, bulletSpreadAngle4);
             // 计算第五颗子弹的速度方向，朝向目标的方向加上角度偏移
             Vector3 fivethBulletDirection = bulletRotation4 * shootDirection;
             
             // 创建第六颗子弹，添加角度偏移
-            float bulletSpreadAngle5 = 50.0f; // 角度偏移，你可以根据需要调整
+            float bulletSpreadAngle5 = 25.0f; // 角度偏移，你可以根据需要调整
             Quaternion bulletRotation5 = Quaternion.Euler(0, 0, bulletSpreadAngle5);
             // 计算第六颗子弹的速度方向，朝向目标的方向加上角度偏移
             Vector3 sixthBulletDirection = bulletRotation5 * shootDirection;

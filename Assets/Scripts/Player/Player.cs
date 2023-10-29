@@ -53,7 +53,8 @@ public class Player : MonoBehaviour
     private Vector2 fireDirection = Vector2.zero;
     private Vector2 mousePos;
     private Camera camera;
-
+    //private static Player instance;//试图保留角色数据
+    
     private void Awake()
     {
         playerInput = new PlayerInput();
@@ -62,7 +63,17 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         character = GetComponent<Character>();
         camera = Camera.main;
-
+        
+        // if (instance == null)
+        // {
+        //     instance = this;
+        //     DontDestroyOnLoad(gameObject);//切换关卡血量经验不变
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
+        
         // 获取射击点
         bulletSpawnPoint = transform.Find("Shoot");
 

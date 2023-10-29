@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PlayerBar : MonoBehaviour
 {   
     public Image experienceIamge;//传入UI部分
@@ -13,18 +14,38 @@ public class PlayerBar : MonoBehaviour
     public float level = 1;
     public GameObject player;
     public Player playerlevel;
-    
+    // public GameObject dataManager;
+    // public Data data;
+
+    private void Awake()
+    {
+        // dataManager = GameObject.Find("DataManager");
+        // data = dataManager.GetComponent<Data>();
+    }
+
     private void Start()
     {
         //character = GetComponent<Character>();
         player = GameObject.Find("Player");
         playerlevel = player.GetComponent<Player>();
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "Second")
+        {
+            playerlevel.LevelUp();
+        }
+        else if (currentSceneName == "Third")
+        {
+            playerlevel.LevelUp();
+            playerlevel.LevelUp();
+        }
     }
 
     private void Update()
     {
         //OnHealthChange();
         OnExperienceChange();
+        
+        //data.SaveData2(currentExperience);
     }
 
     // public void OnHealthChange()

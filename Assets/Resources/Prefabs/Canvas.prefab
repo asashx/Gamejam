@@ -1162,10 +1162,12 @@ MonoBehaviour:
   experienceIamge: {fileID: 0}
   lerpSpeed: 3
   currentExperience: 0
-  maxExperience: 100
+  maxExperience: 5
   level: 1
   player: {fileID: 0}
   playerlevel: {fileID: 0}
+  dataManager: {fileID: 0}
+  data: {fileID: 0}
 --- !u!1 &7143600664157593599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,6 +1223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hearts: {fileID: 7143600664157593599}
   player: {fileID: 0}
+  dataManager: {fileID: 0}
+  data: {fileID: 0}
 --- !u!1 &7995723707561342392
 GameObject:
   m_ObjectHideFlags: 0
