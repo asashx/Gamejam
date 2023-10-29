@@ -8,7 +8,7 @@ public class Essence : MonoBehaviour
     public string essenceName;
     public GameObject experience;
     public PlayerBar playerBar;
-    public float experienceValue;
+    public float experienceValue = 1f;
 
     private void Awake()
     {   
