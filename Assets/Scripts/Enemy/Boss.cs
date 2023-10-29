@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Boss : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -26,7 +27,7 @@ public class Boss : MonoBehaviour
     private Animator _animator;
     public float shootRange;//判断射击范围
     public float hitRange;//判断突刺范围
-    
+    public Character character;
     [Header("吸收")] 
     public PlayerBar playerBar;
     
@@ -45,6 +46,7 @@ public class Boss : MonoBehaviour
             Debug.LogError("ObjectPool.Instance is null!");
         }
         InvokeRepeating("Shoot", 5f, 5f);
+        character = GetComponent<Character>();
     }
     
     void Update()
@@ -52,6 +54,11 @@ public class Boss : MonoBehaviour
         if (target == null)
         {
             return;
+        }
+
+        if (character.currentHealth == 0)
+        {
+            SceneManager.LoadScene("End");
         }
         
         // 计算目标与敌人的距离
