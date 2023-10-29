@@ -8,19 +8,26 @@ public class PlayerHealth : MonoBehaviour
    public GameObject Hearts;
    public GameObject player;
    private Character playerCharacter; // 用于保存获取的 Character 脚本引用
-
+   // public GameObject dataManager;
+   // public Data data;
    private void Awake()
    {
 	   // 如果你不需要在 Awake 中获取 Character 脚本，你可以注释掉下面的行：
 	    playerCharacter = player.GetComponent<Character>();
    }
-  
+
+   private void Start()
+   {
+	   
+   }
+
    private void Update()
    {	
 	   
 	   if (player != null)
 	   {
 		   float currentHealth = playerCharacter.currentHealth;
+		   //data.SaveData1(currentHealth);
 		   Debug.Log("Health:" + playerCharacter.currentHealth);
 		   ChangeHealth(currentHealth);
 	   }
@@ -112,7 +119,9 @@ public class PlayerHealth : MonoBehaviour
 				Hearts.transform.Find("Heart1").Find("None1").gameObject.SetActive(true);
 				Hearts.transform.Find("Heart1").Find("Full1").gameObject.SetActive(false);
 			}
+			// 保存属性，例如当玩家升级时
 			
+
 		
    }
 }
