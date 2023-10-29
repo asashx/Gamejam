@@ -15,7 +15,7 @@ public class FarEnemy2 : MonoBehaviour
     //public float damage = 1f;//伤害
     public float hitRate = 0.7f;//攻击间隔
     private float _lastHit;
-    public float experienceValue;
+    //public float experienceValue;
     public GameObject bulletPrefab; //子弹
     private Animator _animator;
     public float attackRange;//判断射击范围
@@ -23,7 +23,7 @@ public class FarEnemy2 : MonoBehaviour
 
     [Header("吸收")] 
     public GameObject shootEssencePrefab;
-    public PlayerBar playerBar;
+    //public PlayerBar playerBar;
     
     [Header("状态")] 
     public bool Hurt;//手上
@@ -32,7 +32,7 @@ public class FarEnemy2 : MonoBehaviour
     protected void Start()
     {
         _animator = GetComponent<Animator>();
-        playerBar = GetComponent<PlayerBar>();
+        //playerBar = GetComponent<PlayerBar>();
         character = GetComponent<Character>();
         shootPoint = transform.Find("ShootPoint");
         ObjectPool objectPool = ObjectPool.Instance;//查看对象池
@@ -61,7 +61,12 @@ public class FarEnemy2 : MonoBehaviour
             }
         }
 
-        faceDir.x = -(target.position.x - transform.position.x)/(Mathf.Abs(target.position.x - transform.position.x));
+        if (target.position.x - transform.position.x == 0)
+            faceDir.x = 0;
+        else
+        {
+            faceDir.x = -(target.position.x - transform.position.x)/(Mathf.Abs(target.position.x - transform.position.x));
+        }
         transform.localScale = new Vector3(faceDir.x,1,1);
 
         if (character.Hurt)
@@ -144,10 +149,10 @@ public class FarEnemy2 : MonoBehaviour
             Instantiate(shootEssencePrefab, transform.position, Quaternion.identity); // 生成ShootEssence预制体
         }
         
-        if (playerBar != null) // 检查是否为空
-        {
-            playerBar.AddExperienceF(experienceValue); // 触发事件并传递经验值
-        }
+        // if (playerBar != null) // 检查是否为空
+        // {
+        //     playerBar.AddExperience(experienceValue); // 触发事件并传递经验值
+        // }
         Destroy(this.gameObject);//播放死亡动画后摧毁物体
     }
 }

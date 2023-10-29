@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,17 @@ using UnityEngine;
 public class Essence : MonoBehaviour
 {
     public string essenceName;
+    public GameObject experience;
+    public PlayerBar playerBar;
+    public float experienceValue;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Awake()
+    {   
+        experience = GameObject.Find("Experience");
+        playerBar = experience.GetComponent<PlayerBar>();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
@@ -15,6 +25,10 @@ public class Essence : MonoBehaviour
             {
                 player.AbsorbAnim();
                 player.AbsorbEssence(essenceName);
+            }
+            if (playerBar != null) // 检查是否为空
+            {
+                playerBar.AddExperience(experienceValue); // 触发事件并传递经验值
             }
             Destroy(gameObject);
         }

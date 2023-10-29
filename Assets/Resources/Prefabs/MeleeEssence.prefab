@@ -128,6 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   essenceName: Melee
+  experience: {fileID: 0}
+  playerBar: {fileID: 0}
+  experienceValue: 1
 --- !u!58 &5693408348979563313
 CircleCollider2D:
   m_ObjectHideFlags: 0

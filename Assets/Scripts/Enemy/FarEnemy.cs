@@ -15,14 +15,14 @@ public class FarEnemy : MonoBehaviour
     public float damage = 1f;//伤害
     public float hitRate = 0.7f;//攻击间隔
     private float _lastHit;
-    public float experienceValue;
+    //public float experienceValue;
     public GameObject bulletPrefab; //子弹
     private Animator _animator;
     public float attackRange;//判断射击范围
 
     [Header("吸收")] 
     public GameObject shootEssencePrefab;
-    public PlayerBar playerBar;
+    //public PlayerBar playerBar;
     
     [Header("状态")] 
     public bool Hurt;//受伤
@@ -31,7 +31,7 @@ public class FarEnemy : MonoBehaviour
     protected void Start()
     {
         _animator = GetComponent<Animator>();
-        playerBar = GetComponent<PlayerBar>();
+        //playerBar = GetComponent<PlayerBar>();
         shootPoint = transform.Find("ShootPoint");
         ObjectPool objectPool = ObjectPool.Instance;//查看对象池
         if (objectPool == null)
@@ -114,10 +114,10 @@ public class FarEnemy : MonoBehaviour
             Instantiate(shootEssencePrefab, transform.position, Quaternion.identity); // 生成ShootEssence预制体
         }
         
-        if (playerBar != null) // 检查是否为空
-        {
-            playerBar.AddExperienceF(experienceValue); // 触发事件并传递经验值
-        }
+        // if (playerBar != null) // 检查是否为空
+        // {
+        //     playerBar.AddExperience(experienceValue); // 触发事件并传递经验值
+        // }
         Destroy(this.gameObject);//播放死亡动画后摧毁物体
     }
 
