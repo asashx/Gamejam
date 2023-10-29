@@ -28,12 +28,14 @@ public class Player : MonoBehaviour
     private Animator anim;
     private Vector3 originalPosition;
     private bool isInvincible = false;
+    public float currentHealth;
 
     [Header("检测参数")]
     public Vector2 leftOffset;//左方检测
     public Vector2 rightOffset;//右方检测
     public float checkRaduis;//检测的基础范围
     public LayerMask groundLayer;
+    [HideInInspector]public Character character;
 
     [Header("角色攻击")]
     public GameObject meleePrefab;
@@ -57,6 +59,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        character = GetComponent<Character>();
 
         // 获取射击点
         bulletSpawnPoint = transform.Find("Shoot");
@@ -100,6 +103,7 @@ public class Player : MonoBehaviour
         //Debug.Log("Check");
         Check();
         attackRateCounter += Time.deltaTime;
+        currentHealth = character.currentHealth;
 
         if (isInvincible)
         {

@@ -82,20 +82,21 @@ public class FarEnemy2 : MonoBehaviour
         // 创建子弹并设置位置为ShootPoint的位置
         GameObject bullet1 = ObjectPool.Instance.GetObject(bulletPrefab); 
         bullet1.transform.position = shootPoint.position; 
+        bullet1.transform.localScale = new Vector3(-faceDir.x,1,1);
         // 设置子弹速度
         bullet1.GetComponent<Bullet>().SetSpeed(shootDirection);
     
         // 创建第二颗子弹，添加角度偏移
         float bulletSpreadAngle = 10.0f; // 角度偏移，你可以根据需要调整
         Quaternion bulletRotation = Quaternion.Euler(0, 0, bulletSpreadAngle);
-
+        
         // 计算第二颗子弹的速度方向，朝向目标的方向加上角度偏移
         Vector3 secondBulletDirection = bulletRotation * shootDirection;
-
+        
         // 创建第二颗子弹并设置位置为ShootPoint的位置
         GameObject bullet2 = ObjectPool.Instance.GetObject(bulletPrefab);
         bullet2.transform.position = shootPoint.position;
-
+        bullet2.transform.localScale = new Vector3(-faceDir.x,1,1);
         // 设置子弹速度
         bullet2.GetComponent<Bullet>().SetSpeed(secondBulletDirection);
     }

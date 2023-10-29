@@ -148,6 +148,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  Character: {fileID: 0}
   meleePrefab: {fileID: 5195239272317459674}
   lungePrefab: {fileID: 1612682845006683885}
   slashPrefab: {fileID: 4556850888190541119}
@@ -202,11 +203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f686a57151e5744a76344659b86f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 5
+  currentHealth: 5
   damage: 0
-  anim: {fileID: 0}
-  isHurt: 0
+  anim: {fileID: 7670234339605452101}
+  Hurt: 0
+  Dead: 0
   invulnerableDuration: 0.5
   invulnerableCounter: 0
   invulnerable: 0
