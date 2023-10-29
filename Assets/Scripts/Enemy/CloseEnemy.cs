@@ -190,14 +190,13 @@ public class CloseEnemy : MonoBehaviour
     public void OnDie()
     {   
         Debug.Log("dead");
-        gameObject.layer = 5;//这里的第五个图层之后设置为忽略的图层，这里面的物体不会与角色产生碰撞
-        anim.SetBool("Dead",true);
         Dead = true;
-        DestroyObject();
+        StartCoroutine(DestroyObject());
     }
 
-    public void DestroyObject()
+    public IEnumerator DestroyObject()
     {   
+        yield return new WaitForSeconds(1f);
         if (meleeEssencePrefab != null)
         {
             Instantiate(meleeEssencePrefab, transform.position, Quaternion.identity); // 生成ShootEssence预制体
