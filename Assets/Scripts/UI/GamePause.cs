@@ -20,6 +20,7 @@ public class Pause : MonoBehaviour
         backButton.onClick.AddListener(OnbackButtonClick);
         homeButton.onClick.AddListener(OnhomeButtonClick);
     }
+    
     private void Update()
     {
         // 检测是否按下ESC键来切换暂停状态
@@ -53,6 +54,7 @@ public class Pause : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
+    
     private void OnrestartButtonClick()
     {
         SceneManager.LoadScene("First");
