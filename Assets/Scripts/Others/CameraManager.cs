@@ -24,7 +24,7 @@ public class CameraManager : MonoBehaviour
 
     private void LateUpdate()
     {   
-        targetPos = target.position + new Vector3(5f, 3f, 0);
+        targetPos = target.position + new Vector3(8f, 3f, 0);
         if (target != null) {
             if(transform.position != targetPos) 
             {
