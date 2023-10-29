@@ -9,6 +9,7 @@ public class Pause : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private Button backButton;
     [SerializeField] private Button restartButton;
+    [SerializeField] private Button homeButton;
     private bool isPaused = false;
     
     private void Awake()
@@ -17,6 +18,7 @@ public class Pause : MonoBehaviour
         exitButton.onClick.AddListener(OnexitButtonClick);//监听
         restartButton.onClick.AddListener(OnrestartButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
+        homeButton.onClick.AddListener(OnhomeButtonClick);
     }
     private void Update()
     {
@@ -53,7 +55,7 @@ public class Pause : MonoBehaviour
     }
     private void OnrestartButtonClick()
     {
-        SceneManager.LoadScene("FirstScene");
+        SceneManager.LoadScene("First");
         Time.timeScale = 1f; // 恢复游戏时间
         ObjectPool.Instance.Clear(); // 初始化对象池
     }
@@ -68,5 +70,12 @@ public class Pause : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f; // 恢复游戏时间
         PauseMasks.SetActive(false); // 禁用暂停菜单
+    }
+    
+    private void OnhomeButtonClick()
+    {
+        SceneManager.LoadScene("Start");
+        Time.timeScale = 1f; // 恢复游戏时间
+        ObjectPool.Instance.Clear(); // 初始化对象池
     }
 }
