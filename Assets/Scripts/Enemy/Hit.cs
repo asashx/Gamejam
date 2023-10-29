@@ -21,7 +21,14 @@ public class Hit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {   
-        //other.GetComponent<Character>()?.TakeDamage(this);
+        if (other.CompareTag("Player"))
+        {
+            Character character = other.GetComponent<Character>();
+            if (character != null)
+            {
+                character.TakeDamage(damage);
+            }
+        }
     }
     
 }

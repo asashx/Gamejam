@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 { 
-    public float damage;
+    public float damage = 1f;
     public float speed = 10f;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     void Awake()
     {
@@ -36,15 +36,26 @@ public class Bullet : MonoBehaviour
             }
             Die();
         }
-        // else if (other.CompareTag("Enemy"))
-        // {
-        //     Die();
-        //     EnemyBehaviour enemyBehaviour = other.GetComponent<EnemyBehaviour>();
-        //     if (enemyBehaviour != null)
-        //     {
-        //         enemyBehaviour.TakeDamage(damage);
-        //     }
-        // }
+        
+        else if (other.CompareTag("Enemy"))
+        {
+            Die();
+            Character character = other.GetComponent<Character>();
+            if (character != null)
+            {
+                character.TakeDamage(damage);
+            }
+        }
+        
+        else if (other.CompareTag("Player"))
+        {
+            Die();
+            Character character = other.GetComponent<Character>();
+            if (character != null)
+            {
+                character.TakeDamage(damage);
+            }
+        }
     }
 
     // 子弹销毁

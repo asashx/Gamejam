@@ -5,7 +5,14 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float shootCount = 1; 
+    private float shootCount = 1;
+    [Header("尖刺相关参数")]
+    public GameObject spikePrefab; // 尖刺预制体
+    public Transform groundCheckPoint; // 地面检测点，用于确定尖刺生成位置
+    public float spikeGenerationInterval = 3.0f; // 生成尖刺的间隔时间
+    public float spikeDetectionRange = 2.0f; // 尖刺检测范围
+    private float lastSpikeGenerationTime;
+
     [Header("基本参数")] 
     public Transform attacker;//被攻击的对象
     public Transform shootPoint1;//射击出发点 
@@ -18,6 +25,7 @@ public class Boss : MonoBehaviour
     private Animator _animator;
     public float shootRange;//判断射击范围
     public float hitRange;//判断突刺范围
+    
     [Header("吸收")] 
     public PlayerBar playerBar;
     
@@ -47,6 +55,8 @@ public class Boss : MonoBehaviour
         // 计算目标与敌人的距离
         float distanceToTarget = Vector3.Distance(target.position, transform.position);
 
+        GenerateSpikesAttack();
+
         if (distanceToTarget <= shootRange)
         {
                 Debug.Log("HELLO");
@@ -58,14 +68,14 @@ public class Boss : MonoBehaviour
 
             
                  Shoot();
-                 Hit();
+                 GenerateSpikesAttack();
                  //_lastHit = Time.time;
-            // if (Time.time > _lastHit + 1 / hitRate)
-            // {
-            //     Shoot();
-            //     Hit();
-            //     _lastHit = Time.time;
-            // }
+                 // if (Time.time > _lastHit + 1 / hitRate)
+                 // {
+                 //     Shoot();
+                 //     Hit();
+                 //     _lastHit = Time.time;
+                 // }
 
         }
     }
@@ -150,10 +160,35 @@ public class Boss : MonoBehaviour
 
 #region 尝试突刺攻击
 
-private void Hit()
+private void GenerateSpikesAttack()
 {
-    Vector2 position = target.position;
-    
+    // 检查是否到达生成尖刺的时间间隔
+    if (Time.time - lastSpikeGenerationTime >= spikeGenerationInterval)
+    {
+        // 获取地面检测点的位置
+        Vector3 groundCheckPosition = new Vector3(transform.position.x, groundCheckPoint.position.y, groundCheckPoint.position.z);
+
+        // 检测是否存在角色在尖刺生成范围内
+        Collider[] colliders = Physics.OverlapSphere(groundCheckPosition, spikeDetectionRange);
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("Player")) // 根据实际标签来判断角色
+            {
+                // 生成尖刺
+                GenerateSpike(groundCheckPosition);
+                break;
+            }
+        }
+
+        lastSpikeGenerationTime = Time.time;
+    }
+}
+
+private void GenerateSpike(Vector3 spawnPosition)
+{
+    // 在指定位置生成尖刺
+    Instantiate(spikePrefab, spawnPosition, Quaternion.identity);
 }
 
 

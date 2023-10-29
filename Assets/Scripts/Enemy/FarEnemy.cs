@@ -25,8 +25,8 @@ public class FarEnemy : MonoBehaviour
     public PlayerBar playerBar;
     
     [Header("状态")] 
-    public bool isHurt;//手上
-    public bool isDead;//死亡
+    public bool Hurt;//受伤
+    public bool Dead;//死亡
     
     protected void Start()
     {
@@ -74,35 +74,37 @@ public class FarEnemy : MonoBehaviour
         Vector3 shootDirection = (target.position - transform.position).normalized;
         // 创建子弹并设置位置为ShootPoint的位置
         GameObject bullet = ObjectPool.Instance.GetObject(bulletPrefab); 
-        bullet.transform.position = shootPoint.position; 
+        bullet.transform.position = shootPoint.position;
+        bullet.transform.localScale = new Vector3(-faceDir.x,1,1);
         // 设置子弹速度
         bullet.GetComponent<Bullet>().SetSpeed(shootDirection);
     }
     
-    public void OnTakeDamage(Transform attackTrans)
-    {   
-        //受击
-        attacker = attackTrans;
-        //受伤之后会造成一定的击退效果
-        isHurt = true;
-        _animator.SetTrigger("isHurt");//播放受击动画
-        Vector2 dir = new Vector2(transform.position.x - attackTrans.position.x, 0).normalized;
-        rb.velocity = new Vector2(0, rb.velocity.y);
-        StartCoroutine(OnHurt(dir));//使用携程进行一个动作切换的时间间隔
-    }
+    // public void OnTakeDamage(Transform attackTrans)
+    // {   
+    //     //受击
+    //     attacker = attackTrans;
+    //     //受伤之后会造成一定的击退效果
+    //     isHurt = true;
+    //     _animator.SetTrigger("Hurt");//播放受击动画
+    //     Vector2 dir = new Vector2(transform.position.x - attackTrans.position.x, 0).normalized;
+    //     rb.velocity = new Vector2(0, rb.velocity.y);
+    //     StartCoroutine(OnHurt(dir));//使用携程进行一个动作切换的时间间隔
+    // }
 
-    private IEnumerator OnHurt(Vector2 dir)
-    {
-        rb.AddForce(dir * hurtForce,ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.3f);
-        isHurt = false;
-    }
+    // private IEnumerator OnHurt(Vector2 dir)
+    // {
+    //     rb.AddForce(dir * hurtForce,ForceMode2D.Impulse);
+    //     yield return new WaitForSeconds(0.3f);
+    //     isHurt = false;
+    // }
     
     public void OnDie()
     {
         gameObject.layer = 5;//这里的第五个图层之后设置为忽略的图层，这里面的物体不会与角色产生碰撞
-        _animator.SetBool("isDead",true);
-        isDead = true;
+        _animator.SetBool("Dead",true);
+        Dead = true;
+        DestroyObject();
     }
     
     public void DestroyObject()

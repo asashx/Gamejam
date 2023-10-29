@@ -19,6 +19,7 @@ public class CloseEnemy : MonoBehaviour
     public Transform attacker;//被攻击的对象
     public float hurtForce;
     public float experienceValue;
+    public Character character;
     
     [Header("检测")]
     public Vector2 centerOffset;
@@ -27,8 +28,8 @@ public class CloseEnemy : MonoBehaviour
     public LayerMask attackLayer;
     
     [Header("状态")] 
-    public bool isHurt;
-    public bool isDead;
+    public bool Hurt;
+    public bool Dead;
     
     [Header("计时器")] 
     public bool wait = false;
@@ -47,13 +48,14 @@ public class CloseEnemy : MonoBehaviour
     
     void Awake()
     {
-        isHurt = false;
-        isDead = false;
+        Hurt = false;
+        Dead = false;
         rb = GetComponent<Rigidbody2D>();
         playerBar = GetComponent<PlayerBar>();
         physicCheck = GetComponent<PhysicCheck>();
         anim = GetComponent<Animator>();
         coll = GetComponent<CapsuleCollider2D>();//获取组件
+        character = GetComponent<Character>();
         currentSpeed = normalSpeed;//速度
         waitTimeCounter = waitTime;//时间
         patrolState = new ClosePatrolState();
@@ -72,18 +74,23 @@ public class CloseEnemy : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
         //Debug.Log("HUH");
-        faceDir = new Vector3(-transform.localScale.x,0,0);//获取敌人的面朝方式
-        
+        faceDir = new Vector3(-transform.localScale.x, 0, 0); //获取敌人的面朝方式
+
         TimeCounter();
         currentState.LogicUpdate();
-    }
+
+        if (character.Hurt)
+        {
+            OnTakeDamage();
+        }
+}
 
     private void FixedUpdate()
     {   
         //Debug.Log("启动了");
-        if (!isHurt && !isDead && !wait )
+        if (!Hurt && !Dead && !wait )
         {
             Move();//执行自动移动
             currentState.PhysicsUpdate();
@@ -150,39 +157,42 @@ public class CloseEnemy : MonoBehaviour
     }
     
     #region 事件执行部分
-    public void OnTakeDamage(Transform attackTrans)
+    public void OnTakeDamage()
     {   
         //受击转身
-        attacker = attackTrans;
         
-        if (attackTrans.position.x - transform.position.x > 0)
-        {
-            transform.localScale = new Vector3(1,1, 1);
-        }
-        if (attackTrans.position.x - transform.position.x < 0)
-        {
-            transform.localScale = new Vector3(1,1, 1);
-        }
+        // if (attacker.position.x - transform.position.x > 0)
+        // {
+        //     transform.localScale = new Vector3(1,1, 1);
+        // }
+        // if (attacker.position.x - transform.position.x < 0)
+        // {
+        //     transform.localScale = new Vector3(1,1, 1);
+        // }
         //受伤之后会造成一定的击退效果
-        isHurt = true;
-        anim.SetTrigger("hurt");//播放受击动画
-        Vector2 dir = new Vector2(transform.position.x - attackTrans.position.x, 0).normalized;
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        Hurt = true;
+        //anim.SetTrigger("Hurt");//播放受击动画
+        Vector2 dir = new Vector2(Mathf.Abs(transform.position.x - attacker.position.x), 0).normalized;
+        rb.velocity = new Vector2(rb.velocity.x * 0.5f, rb.velocity.y);
         StartCoroutine(OnHurt(dir));//使用携程进行一个动作切换的时间间隔
     }
 
     private IEnumerator OnHurt(Vector2 dir)
     {
         rb.AddForce(dir * hurtForce,ForceMode2D.Impulse);
+        
         yield return new WaitForSeconds(0.3f);
-        isHurt = false;
+        Hurt = false;
+        character.Hurt = false;
     }
 
     public void OnDie()
-    {
+    {   
+        Debug.Log("dead");
         gameObject.layer = 5;//这里的第五个图层之后设置为忽略的图层，这里面的物体不会与角色产生碰撞
         anim.SetBool("Dead",true);
-        isDead = true;
+        Dead = true;
+        DestroyObject();
     }
 
     public void DestroyObject()

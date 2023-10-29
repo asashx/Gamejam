@@ -19,19 +19,21 @@ public class FarEnemy2 : MonoBehaviour
     public GameObject bulletPrefab; //子弹
     private Animator _animator;
     public float attackRange;//判断射击范围
+    public Character character;
 
     [Header("吸收")] 
     public GameObject shootEssencePrefab;
     public PlayerBar playerBar;
     
     [Header("状态")] 
-    public bool isHurt;//手上
-    public bool isDead;//死亡
+    public bool Hurt;//手上
+    public bool Dead;//死亡
     
     protected void Start()
     {
         _animator = GetComponent<Animator>();
         playerBar = GetComponent<PlayerBar>();
+        character = GetComponent<Character>();
         shootPoint = transform.Find("ShootPoint");
         ObjectPool objectPool = ObjectPool.Instance;//查看对象池
         if (objectPool == null)
@@ -61,6 +63,11 @@ public class FarEnemy2 : MonoBehaviour
 
         faceDir.x = -(target.position.x - transform.position.x)/(Mathf.Abs(target.position.x - transform.position.x));
         transform.localScale = new Vector3(faceDir.x,1,1);
+
+        if (character.Hurt)
+        {
+            OnTakeDamage();
+        }
 
     }
     
@@ -93,30 +100,40 @@ public class FarEnemy2 : MonoBehaviour
         bullet2.GetComponent<Bullet>().SetSpeed(secondBulletDirection);
     }
     
-    public void OnTakeDamage(Transform attackTrans)
+    public void OnTakeDamage()
     {   
-        //受击
-        attacker = attackTrans;
+        //受击转身
+        
+        // if (attacker.position.x - transform.position.x > 0)
+        // {
+        //     transform.localScale = new Vector3(1,1, 1);
+        // }
+        // if (attacker.position.x - transform.position.x < 0)
+        // {
+        //     transform.localScale = new Vector3(1,1, 1);
+        // }
         //受伤之后会造成一定的击退效果
-        isHurt = true;
-        _animator.SetTrigger("hurt");//播放受击动画
-        Vector2 dir = new Vector2(transform.position.x - attackTrans.position.x, 0).normalized;
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        Hurt = true;
+        //anim.SetTrigger("Hurt");//播放受击动画
+        Vector2 dir = new Vector2(Mathf.Abs(transform.position.x - attacker.position.x), 0).normalized;
+        //rb.velocity = new Vector2(rb.velocity.x * 0.5f, rb.velocity.y);
         StartCoroutine(OnHurt(dir));//使用携程进行一个动作切换的时间间隔
     }
 
     private IEnumerator OnHurt(Vector2 dir)
     {
-        rb.AddForce(dir * hurtForce,ForceMode2D.Impulse);
+        //rb.AddForce(dir * hurtForce,ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.3f);
-        isHurt = false;
+        Hurt = false;
+        character.Hurt = false;
     }
     
     public void OnDie()
     {
         gameObject.layer = 5;//这里的第五个图层之后设置为忽略的图层，这里面的物体不会与角色产生碰撞
         _animator.SetBool("Dead",true);
-        isDead = true;
+        Dead = true;
+        DestroyObject();
     }
     
     public void DestroyObject()

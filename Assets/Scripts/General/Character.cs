@@ -13,7 +13,8 @@ public class Character : MonoBehaviour
     [Header("动画")]
     public Animator anim;
 
-    public bool isHurt = false;
+    public bool Hurt = false;
+    public bool Dead = false;
     
     [Header("受伤无敌")] 
     public float invulnerableDuration;
@@ -50,14 +51,17 @@ public class Character : MonoBehaviour
         if (currentHealth - damage > 0)
         {   
             currentHealth -= damage; //设置生命的削减
-            anim.SetTrigger("isHurt");
+            anim.SetTrigger("Hurt");
+            Hurt = true;
             TriggerInvulnerable();
             //执行受伤
+            
         }
         else
         {
             currentHealth = 0;
             //触发死亡
+            anim.SetBool("Dead",true);
             OnDie?.Invoke();
         }
     }
