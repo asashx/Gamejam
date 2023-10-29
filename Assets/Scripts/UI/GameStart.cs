@@ -20,7 +20,7 @@ public class GameStart : MonoBehaviour
     {   
         Time.timeScale = 1f;
         startmasks.SetActive(false);//再隐藏
-        SceneManager.LoadScene("FirstScene");
+        SceneManager.LoadScene("First");
         // 禁用脚本
         enabled = false;
     }
