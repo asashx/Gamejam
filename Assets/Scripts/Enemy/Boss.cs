@@ -55,7 +55,7 @@ public class Boss : MonoBehaviour
         // 计算目标与敌人的距离
         float distanceToTarget = Vector3.Distance(target.position, transform.position);
 
-        GenerateSpikesAttack();
+        //GenerateSpikesAttack();
 
         if (distanceToTarget <= shootRange)
         {
@@ -68,7 +68,7 @@ public class Boss : MonoBehaviour
 
             
                  Shoot();
-                 GenerateSpikesAttack();
+                 //GenerateSpikesAttack();
                  //_lastHit = Time.time;
                  // if (Time.time > _lastHit + 1 / hitRate)
                  // {
@@ -158,41 +158,41 @@ public class Boss : MonoBehaviour
     }
 #endregion
 
-#region 尝试突刺攻击
-
-private void GenerateSpikesAttack()
-{
-    // 检查是否到达生成尖刺的时间间隔
-    if (Time.time - lastSpikeGenerationTime >= spikeGenerationInterval)
-    {
-        // 获取地面检测点的位置
-        Vector3 groundCheckPosition = new Vector3(transform.position.x, groundCheckPoint.position.y, groundCheckPoint.position.z);
-
-        // 检测是否存在角色在尖刺生成范围内
-        Collider[] colliders = Physics.OverlapSphere(groundCheckPosition, spikeDetectionRange);
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.CompareTag("Player")) // 根据实际标签来判断角色
-            {
-                // 生成尖刺
-                GenerateSpike(groundCheckPosition);
-                break;
-            }
-        }
-
-        lastSpikeGenerationTime = Time.time;
-    }
-}
-
-private void GenerateSpike(Vector3 spawnPosition)
-{
-    // 在指定位置生成尖刺
-    Instantiate(spikePrefab, spawnPosition, Quaternion.identity);
-}
-
-
-#endregion
+//  #region 尝试突刺攻击
+//
+// private void GenerateSpikesAttack()
+// {
+//     // 检查是否到达生成尖刺的时间间隔
+//     if (Time.time - lastSpikeGenerationTime >= spikeGenerationInterval)
+//     {
+//         // 获取地面检测点的位置
+//         Vector3 groundCheckPosition = new Vector3(transform.position.x, groundCheckPoint.position.y, groundCheckPoint.position.z);
+//
+//         // 检测是否存在角色在尖刺生成范围内
+//         Collider[] colliders = Physics.OverlapSphere(groundCheckPosition, spikeDetectionRange);
+//
+//         foreach (Collider collider in colliders)
+//         {
+//             if (collider.CompareTag("Player")) // 根据实际标签来判断角色
+//             {
+//                 // 生成尖刺
+//                 GenerateSpike(groundCheckPosition);
+//                 break;
+//             }
+//         }
+//
+//         lastSpikeGenerationTime = Time.time;
+//     }
+// }
+//
+// private void GenerateSpike(Vector3 spawnPosition)
+// {
+//     // 在指定位置生成尖刺
+//     Instantiate(spikePrefab, spawnPosition, Quaternion.identity);
+// }
+//
+//
+// #endregion
 
 
     #region 怪物的受伤死亡逻辑
@@ -201,7 +201,7 @@ private void GenerateSpike(Vector3 spawnPosition)
         //受击
         attacker = attackTrans;
         isHurt = true;
-        _animator.SetTrigger("hurt");//播放受击动画
+        _animator.SetTrigger("Hurt");//播放受击动画
         StartCoroutine(OnHurt());//使用携程进行一个动作切换的时间间隔
     }
 
