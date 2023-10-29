@@ -11,10 +11,14 @@ public class PlayerBar : MonoBehaviour
     public float currentExperience = 0;
     public float maxExperience = 4; // 假设最大经验值为4
     public float level = 1;
+    public GameObject player;
+    public Player playerlevel;
     
     private void Start()
     {
         //character = GetComponent<Character>();
+        player = GameObject.Find("Player");
+        playerlevel = player.GetComponent<Player>();
     }
 
     private void Update()
@@ -47,6 +51,7 @@ public class PlayerBar : MonoBehaviour
         if (currentExperience >= maxExperience)
         {
             LevelUp();
+            playerlevel.LevelUp();
         }
     }
     

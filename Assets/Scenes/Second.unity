@@ -304,12 +304,10 @@ MonoBehaviour:
   target: {fileID: 1652954450}
   hurtForce: 0
   hitRate: 0.7
-  experienceValue: 0
   bulletPrefab: {fileID: 8533324815716998228, guid: 613d67359fddac44ca3588bcedff0216, type: 3}
   attackRange: 10
   character: {fileID: 0}
   shootEssencePrefab: {fileID: 463895213832321421, guid: 26217145241a7a9458a8bdb64e18b361, type: 3}
-  playerBar: {fileID: 0}
   Hurt: 0
   Dead: 0
 --- !u!4 &303840718 stripped
@@ -731,7 +729,7 @@ Transform:
   m_GameObject: {fileID: 1059877657}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.57, y: 4.04, z: -10}
+  m_LocalPosition: {x: 4.57, y: -2.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -946,12 +944,10 @@ MonoBehaviour:
   target: {fileID: 1652954450}
   hurtForce: 0
   hitRate: 0.7
-  experienceValue: 0
   bulletPrefab: {fileID: 8533324815716998228, guid: 613d67359fddac44ca3588bcedff0216, type: 3}
   attackRange: 10
   character: {fileID: 0}
   shootEssencePrefab: {fileID: 463895213832321421, guid: 26217145241a7a9458a8bdb64e18b361, type: 3}
-  playerBar: {fileID: 0}
   Hurt: 0
   Dead: 0
 --- !u!4 &1116885626 stripped
@@ -977,7 +973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4789052378694711725, guid: 3e110c8e481b5f84ba14264379316579, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.43817
+      value: -2.80183
       objectReference: {fileID: 0}
     - target: {fileID: 5591233512105262091, guid: 3e110c8e481b5f84ba14264379316579, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1303,7 +1299,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 8.253038
+      m_AnimationSpeed: 9.2558975
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 41, y: -20, z: 0}
@@ -1322,7 +1318,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 9.233048
+      m_AnimationSpeed: 9.357734
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 42, y: -20, z: 0}
@@ -1341,7 +1337,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 8.307628
+      m_AnimationSpeed: 9.314964
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 41, y: -19, z: 0}
@@ -1360,7 +1356,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 9.216157
+      m_AnimationSpeed: 8.579935
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 42, y: -19, z: 0}
@@ -1379,7 +1375,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 8.877455
+      m_AnimationSpeed: 8.057887
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 42, y: -18, z: 0}
@@ -1398,7 +1394,7 @@ Tilemap:
       - {fileID: -645936263, guid: b9288c073cee2834d9478f66c94db392, type: 3}
       - {fileID: 2066238087, guid: 28e3172d9c3ca7b47bf736c8055aa637, type: 3}
       - {fileID: 662796534, guid: 539e50b732cab044d986c818cf29ff50, type: 3}
-      m_AnimationSpeed: 9.091429
+      m_AnimationSpeed: 9.912429
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -3772,12 +3768,10 @@ MonoBehaviour:
   target: {fileID: 1652954450}
   hurtForce: 0
   hitRate: 0.7
-  experienceValue: 0
   bulletPrefab: {fileID: 8533324815716998228, guid: 613d67359fddac44ca3588bcedff0216, type: 3}
   attackRange: 10
   character: {fileID: 0}
   shootEssencePrefab: {fileID: 463895213832321421, guid: 26217145241a7a9458a8bdb64e18b361, type: 3}
-  playerBar: {fileID: 0}
   Hurt: 0
   Dead: 0
 --- !u!4 &1726571996 stripped
@@ -4816,7 +4810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2279988634212642065, guid: 5fc37fe003f3f6145bcb2f6b15fe06cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.04
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 2279988634212642065, guid: 5fc37fe003f3f6145bcb2f6b15fe06cd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4883,12 +4877,10 @@ MonoBehaviour:
   target: {fileID: 1652954450}
   hurtForce: 0
   hitRate: 0.7
-  experienceValue: 0
   bulletPrefab: {fileID: 8533324815716998228, guid: 613d67359fddac44ca3588bcedff0216, type: 3}
   attackRange: 10
   character: {fileID: 0}
   shootEssencePrefab: {fileID: 463895213832321421, guid: 26217145241a7a9458a8bdb64e18b361, type: 3}
-  playerBar: {fileID: 0}
   Hurt: 0
   Dead: 0
 --- !u!1001 &2417742361535978365

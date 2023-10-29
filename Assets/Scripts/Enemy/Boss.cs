@@ -89,7 +89,7 @@ public class Boss : MonoBehaviour
         GameObject specialbullet = ObjectPool.Instance.GetObject(specialbulletPrefab);//追踪子弹,追不了一点
         bullet.transform.position = shootPoint1.position;
         specialbullet.transform.position = shootPoint1.position;
-        bullet.GetComponent<Bullet>().SetSpeed(direction);
+        bullet.GetComponent<Shoot>().SetSpeed(direction);
         
         
     }
@@ -152,7 +152,7 @@ public class Boss : MonoBehaviour
             //二三轮间隔
             GameObject specialbullet = ObjectPool.Instance.GetObject(specialbulletPrefab);//追踪子弹,追不了一点
             specialbullet.transform.position = shootPoint1.position;
-            specialbullet.GetComponent<Bullet>().SetSpeed(shootDirection);
+            specialbullet.GetComponent<Shoot>().SetSpeed(shootDirection);
             shootCount = 1;
         }
     }

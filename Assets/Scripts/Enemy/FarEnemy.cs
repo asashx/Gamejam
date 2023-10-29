@@ -77,7 +77,7 @@ public class FarEnemy : MonoBehaviour
         bullet.transform.position = shootPoint.position;
         bullet.transform.localScale = new Vector3(-faceDir.x,1,1);
         // 设置子弹速度
-        bullet.GetComponent<Bullet>().SetSpeed(shootDirection);
+        bullet.GetComponent<Shoot>().SetSpeed(shootDirection);
     }
     
     // public void OnTakeDamage(Transform attackTrans)

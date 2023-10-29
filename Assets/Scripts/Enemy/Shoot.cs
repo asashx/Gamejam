@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
-{ 
+public class Shoot : MonoBehaviour
+{
     public float damage = 1f;
     public float speed = 10f;
     public Rigidbody2D rb;
@@ -27,27 +27,18 @@ public class Bullet : MonoBehaviour
         {
             Die();
         }
-        else if (other.CompareTag("Obstacle"))
-        {
-            DestroyObstacle destroyObstacle = other.GetComponent<DestroyObstacle>();
-            if (destroyObstacle != null)
-            {
-                destroyObstacle.DestroyTile(transform.position);
-            }
-            Die();
-        }
         
-        else if (other.CompareTag("Enemy"))
-        {
-            Die();
-            Character character = other.GetComponent<Character>();
-            if (character != null)
-            {
-                character.TakeDamage(damage);
-            }
-        }
-        
-        // else if (other.CompareTag("Player"))
+        // else if (other.CompareTag("Obstacle"))
+        // {
+        //     DestroyObstacle destroyObstacle = other.GetComponent<DestroyObstacle>();
+        //     if (destroyObstacle != null)
+        //     {
+        //         destroyObstacle.DestroyTile(transform.position);
+        //     }
+        //     Die();
+        // }
+        //
+        // else if (other.CompareTag("Enemy"))
         // {
         //     Die();
         //     Character character = other.GetComponent<Character>();
@@ -56,6 +47,16 @@ public class Bullet : MonoBehaviour
         //         character.TakeDamage(damage);
         //     }
         // }
+        
+        if (other.CompareTag("Player"))
+        {
+            Die();
+            Character character = other.GetComponent<Character>();
+            if (character != null)
+            {
+                character.TakeDamage(damage);
+            }
+        }
     }
 
     // 子弹销毁

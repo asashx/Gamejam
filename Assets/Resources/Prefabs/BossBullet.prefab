@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3242731329251689946}
   - component: {fileID: 3071110760886715875}
   - component: {fileID: 5337192764750980982}
-  - component: {fileID: 5031298455606626700}
   - component: {fileID: 7813465706420286816}
+  - component: {fileID: 4518102548792006710}
   m_Layer: 9
   m_Name: BossBullet
   m_TagString: Bullet
@@ -114,20 +114,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5031298455606626700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2482565655256035933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee5c211f78c101c4fab07098e988617c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  speed: 10
 --- !u!70 &7813465706420286816
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -163,3 +149,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0.011610267, y: -0.03741178}
   m_Size: {x: 0.75685185, y: 0.17973495}
   m_Direction: 1
+--- !u!114 &4518102548792006710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2482565655256035933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f145ea92664ac4a8dd103ffe1876cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  speed: 10
+  rb: {fileID: 0}

@@ -89,7 +89,7 @@ public class FarEnemy2 : MonoBehaviour
         bullet1.transform.position = shootPoint.position; 
         bullet1.transform.localScale = new Vector3(-faceDir.x,1,1);
         // 设置子弹速度
-        bullet1.GetComponent<Bullet>().SetSpeed(shootDirection);
+        bullet1.GetComponent<Shoot>().SetSpeed(shootDirection);
     
         // 创建第二颗子弹，添加角度偏移
         float bulletSpreadAngle = 10.0f; // 角度偏移，你可以根据需要调整
@@ -103,7 +103,7 @@ public class FarEnemy2 : MonoBehaviour
         bullet2.transform.position = shootPoint.position;
         bullet2.transform.localScale = new Vector3(-faceDir.x,1,1);
         // 设置子弹速度
-        bullet2.GetComponent<Bullet>().SetSpeed(secondBulletDirection);
+        bullet2.GetComponent<Shoot>().SetSpeed(secondBulletDirection);
     }
     
     public void OnTakeDamage()
