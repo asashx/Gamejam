@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    public float damage = 1f;
+    public float damage = 2f;
     public float speed = 10f;
     public Rigidbody2D rb;
 

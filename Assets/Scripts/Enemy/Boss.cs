@@ -117,28 +117,33 @@ public class Boss : MonoBehaviour
             Vector3 secondBulletDirection = bulletRotation1 * shootDirection;
             
             // 创建第三颗子弹，添加角度偏移
-            float bulletSpreadAngle2 = 10.0f; // 角度偏移
+            float bulletSpreadAngle2 = -5.0f; // 角度偏移
             Quaternion bulletRotation2 = Quaternion.Euler(0, 0, bulletSpreadAngle2);
             // 计算第三颗子弹的速度方向，朝向目标的方向加上角度偏移
             Vector3 thirdBulletDirection = bulletRotation2 * shootDirection;
             
             // 创建第四颗子弹，添加角度偏移
-            float bulletSpreadAngle3 = 15.0f; // 角度偏移
+            float bulletSpreadAngle3 = 10.0f; // 角度偏移
             Quaternion bulletRotation3 = Quaternion.Euler(0, 0, bulletSpreadAngle3);
             // 计算第四颗子弹的速度方向，朝向目标的方向加上角度偏移
             Vector3 fourthBulletDirection = bulletRotation3 * shootDirection;
             
             // 创建第五颗子弹，添加角度偏移
-            float bulletSpreadAngle4 = 20.0f; // 角度偏移，你可以根据需要调整
+            float bulletSpreadAngle4 = -10.0f; // 角度偏移，你可以根据需要调整
             Quaternion bulletRotation4 = Quaternion.Euler(0, 0, bulletSpreadAngle4);
             // 计算第五颗子弹的速度方向，朝向目标的方向加上角度偏移
             Vector3 fivethBulletDirection = bulletRotation4 * shootDirection;
             
             // 创建第六颗子弹，添加角度偏移
-            float bulletSpreadAngle5 = 25.0f; // 角度偏移，你可以根据需要调整
+            float bulletSpreadAngle5 = 15.0f; // 角度偏移，你可以根据需要调整
             Quaternion bulletRotation5 = Quaternion.Euler(0, 0, bulletSpreadAngle5);
             // 计算第六颗子弹的速度方向，朝向目标的方向加上角度偏移
             Vector3 sixthBulletDirection = bulletRotation5 * shootDirection;
+            
+            float bulletSpreadAngle6 = -15.0f; // 角度偏移，你可以根据需要调整
+            Quaternion bulletRotation6 = Quaternion.Euler(0, 0, bulletSpreadAngle6);
+            // 计算第六颗子弹的速度方向，朝向目标的方向加上角度偏移
+            Vector3 seventhBulletDirection = bulletRotation6 * shootDirection;
             
             
             // 第一轮，依次发射子弹，每颗之间间隔0.05秒
@@ -151,6 +156,7 @@ public class Boss : MonoBehaviour
             StartCoroutine(DelayedShoot(fourthBulletDirection, 2 * delayBetweenBullets1 + delayBetewwnCount + 2 * delayBetweenBullets2));
             StartCoroutine(DelayedShoot(fivethBulletDirection, 2 * delayBetweenBullets1 + delayBetewwnCount + 3 * delayBetweenBullets2));
             StartCoroutine(DelayedShoot(sixthBulletDirection, 2 * delayBetweenBullets1 + delayBetewwnCount + 4 * delayBetweenBullets2));
+            StartCoroutine(DelayedShoot(secondBulletDirection, 2 * delayBetweenBullets1 + delayBetewwnCount + 5 * delayBetweenBullets2));
             //二三轮间隔
             GameObject specialbullet = ObjectPool.Instance.GetObject(specialbulletPrefab);//追踪子弹,追不了一点
             specialbullet.transform.position = shootPoint1.position;

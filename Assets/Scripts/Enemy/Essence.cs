@@ -12,8 +12,15 @@ public class Essence : MonoBehaviour
 
     private void Awake()
     {   
-        experience = GameObject.Find("Experience");
-        playerBar = experience.GetComponent<PlayerBar>();
+       // if(experience != null)
+            experience = GameObject.Find("Experience");
+        
+    }
+
+    private void Start()
+    {
+        //if(playerBar != null)
+            playerBar = experience.GetComponent<PlayerBar>();
     }
 
     void OnTriggerEnter2D(Collider2D other)

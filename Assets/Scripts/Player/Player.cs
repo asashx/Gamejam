@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     public float checkRaduis;//检测的基础范围
     public LayerMask groundLayer;
     [HideInInspector]public Character character;
+    private string currentSceneName;
 
     [Header("角色攻击")]
     public GameObject meleePrefab;
@@ -62,6 +64,8 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         character = GetComponent<Character>();
+        currentSceneName = SceneManager.GetActiveScene().name;
+            
         camera = Camera.main;
         
         // if (instance == null)
@@ -117,7 +121,8 @@ public class Player : MonoBehaviour
         Check();
         attackRateCounter += Time.deltaTime;
         currentHealth = character.currentHealth;
-
+        Dead();
+        Stick();
         if (isInvincible)
         {
             transform.position = originalPosition;
@@ -129,7 +134,8 @@ public class Player : MonoBehaviour
         Move();
         CheckGround();
         Fall();
-        Stick();
+        
+        //Stick();
         if (isSticking)
         {
             StickMovement(); // 在贴墙状态下进行特殊移动
@@ -355,6 +361,7 @@ public class Player : MonoBehaviour
     public void Check()
     {
         Debug.Log("Check");
+        
         touchLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, groundLayer);
 
         touchRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, groundLayer);
@@ -408,7 +415,7 @@ public class Player : MonoBehaviour
         }    
         // 允许上下移动
         float verticalInput = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(0, verticalInput * speed / 200);
+        rb.velocity = new Vector2(0, verticalInput * speed / 50);
 
         // 在贴墙状态下进行跳跃
         if (Input.GetKeyDown(KeyCode.Space))
@@ -424,6 +431,18 @@ public class Player : MonoBehaviour
             // rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isSticking = false; // 退出贴墙状态
             anim.SetBool("isSticking", false);
+        }
+    }
+    #endregion
+
+    #region 角色死亡
+
+    private void Dead()
+    {
+        if(currentHealth == 0f)
+        {   
+            ObjectPool.Instance.Clear(); // 初始化对象池
+            SceneManager.LoadScene(currentSceneName);
         }
     }
     #endregion

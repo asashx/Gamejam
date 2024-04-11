@@ -19,7 +19,8 @@ public class ToThird : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {   
             ObjectPool.Instance.Clear(); // 初始化对象池
-            SceneManager.LoadScene("Third"); //把当前活动场景的属性拿出，+1即到下一个场景
+            Debug.Log("111");
+            SceneManager.LoadScene("Third"); 
             // 加载属性，通常在游戏启动时
             //data.LoadData();
         }

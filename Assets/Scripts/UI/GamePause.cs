@@ -68,16 +68,42 @@ public class Pause : MonoBehaviour
     }
     
     private void ResumeGame()
-    {
+    {   
+        ObjectPool.Instance.Clear(); // 初始化对象池
         isPaused = false;
         Time.timeScale = 1f; // 恢复游戏时间
         PauseMasks.SetActive(false); // 禁用暂停菜单
     }
     
-    private void OnhomeButtonClick()
-    {
-        SceneManager.LoadScene("Start");
-        Time.timeScale = 1f; // 恢复游戏时间
+    // private void OnhomeButtonClick()
+    // {
+    //     SceneManager.LoadScene("Start");
+    //     Time.timeScale = 1f; // 恢复游戏时间
+    //     ObjectPool.Instance.Clear(); // 初始化对象池
+    // }
+    
+    private void OnhomeButtonClick()    
+    {   
         ObjectPool.Instance.Clear(); // 初始化对象池
+        StartCoroutine(LoadAndRestartScene("Start"));
     }
+
+    private IEnumerator LoadAndRestartScene(string sceneName)
+    {
+        // 加载场景
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+        // 等待场景加载完成
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        // 初始化对象池
+        ObjectPool.Instance.Clear();
+
+        // 恢复游戏时间
+        Time.timeScale = 1f;
+    }
+
 }

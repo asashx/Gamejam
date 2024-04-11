@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Dialogue : MonoBehaviour
+public class DialogueGameOver : MonoBehaviour
 {
     [Header("UI组件")]
     public TextMeshProUGUI textLabel; 
-    //public GameObject gameoverImage;
+    public GameObject gameoverImage;
 
     [Header("文本文件")]
     public TextAsset textFile;
@@ -19,7 +19,7 @@ public class Dialogue : MonoBehaviour
     void Awake()
     {
         GetTextFromFile(textFile);
-        //gameoverImage.SetActive(false);
+        gameoverImage.SetActive(false);
     }
 
     private void OnEnable()
@@ -52,7 +52,7 @@ public class Dialogue : MonoBehaviour
             else
             {
                 // 对话结束，显示gameoverImage
-                //gameoverImage.SetActive(true);
+                gameoverImage.SetActive(true);
                 gameObject.SetActive(false); // 隐藏对话UI
             }
         }

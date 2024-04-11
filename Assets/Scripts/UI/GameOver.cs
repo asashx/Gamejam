@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class GameOverForm : MonoBehaviour
 {   
     // 
-    [SerializeField] private GameObject masks;
+    //[SerializeField] private GameObject masks;
     [SerializeField] private Button exitButton;
     [SerializeField] private Button restartButton;
 
     private void Awake()
     {
-        masks.SetActive(false);//先隐藏
+        //masks.SetActive(false);//先隐藏
         exitButton.onClick.AddListener(OnexitButtonClick);//监听
         restartButton.onClick.AddListener(OnrestartButtonClick);
     }
@@ -33,13 +33,13 @@ public class GameOverForm : MonoBehaviour
     }
     private void OnrestartButtonClick()
     {
-        SceneManager.LoadScene("FirstScene");
+        SceneManager.LoadScene("First");
         ObjectPool.Instance.Clear(); // 初始化对象池
     }
 
     private void GameOver()
     {
-        masks.SetActive(true);//再启用
+       // masks.SetActive(true);//再启用
     }
 
     private void OnDisable()

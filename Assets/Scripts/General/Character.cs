@@ -24,7 +24,7 @@ public class Character : MonoBehaviour
     public UnityEvent<Transform> OnTakeDamage;//直接调用
     public UnityEvent OnDie;//直接调用
     
-    void Start()
+    void Awake()
     {
         currentHealth = maxHealth; //设置生命值
         anim = GetComponent<Animator>();
